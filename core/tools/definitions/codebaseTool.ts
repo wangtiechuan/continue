@@ -3,17 +3,17 @@ import { BUILT_IN_GROUP_NAME, BuiltInToolNames } from "../builtIn";
 
 export const codebaseTool: Tool = {
   type: "function",
-  displayTitle: "Codebase Search",
-  wouldLikeTo: "search the codebase for: {{{ query }}}",
-  isCurrently: "searching the codebase for: {{{ query }}}",
-  hasAlready: "searched the codebase for: {{{ query }}}",
+  displayTitle: "代码库搜索",
+  wouldLikeTo: "在代码库中搜索：{{{ query }}}",
+  isCurrently: "正在代码库中搜索：{{{ query }}}",
+  hasAlready: "已在代码库中搜索：{{{ query }}}",
   readonly: true,
   isInstant: false,
   group: BUILT_IN_GROUP_NAME,
   function: {
     name: BuiltInToolNames.CodebaseTool,
     description:
-      "Use this tool to semantically search through the codebase and retrieve relevant code snippets based on a natural language query. This helps find relevant code context for understanding or working with the codebase.",
+      "对代码库进行语义搜索，根据自然语言查询返回相关代码片段。适合在理解或修改代码库之前查找相关代码上下文。",
     parameters: {
       type: "object",
       required: ["query"],
@@ -21,7 +21,7 @@ export const codebaseTool: Tool = {
         query: {
           type: "string",
           description:
-            "Natural language description of what you're looking for in the codebase (e.g., 'authentication logic', 'database connection setup', 'error handling')",
+            "用自然语言描述要查找的内容（如认证逻辑、数据库连接设置、错误处理）",
         },
       },
     },

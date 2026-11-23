@@ -4,23 +4,23 @@ import { BUILT_IN_GROUP_NAME, BuiltInToolNames } from "../builtIn";
 
 export const searchWebTool: Tool = {
   type: "function",
-  displayTitle: "Search Web",
-  wouldLikeTo: 'search the web for "{{{ query }}}"',
-  isCurrently: 'searching the web for "{{{ query }}}"',
-  hasAlready: 'searched the web for "{{{ query }}}"',
+  displayTitle: "搜索网页",
+  wouldLikeTo: '搜索网页 "{{{ query }}}"',
+  isCurrently: '正在搜索网页 "{{{ query }}}"',
+  hasAlready: '已搜索网页 "{{{ query }}}"',
   readonly: true,
   group: BUILT_IN_GROUP_NAME,
   function: {
     name: BuiltInToolNames.SearchWeb,
     description:
-      "Performs a web search, returning top results. Use this tool sparingly - only for questions that require specialized, external, and/or up-to-date knowledege. Common programming questions do not require web search.",
+      "执行网页搜索并返回靠前的结果。请少用，仅在需要专业、外部或最新知识时使用。常规编程问题无需搜索网页。",
     parameters: {
       type: "object",
       required: ["query"],
       properties: {
         query: {
           type: "string",
-          description: "The natural language search query",
+          description: "自然语言搜索词",
         },
       },
     },

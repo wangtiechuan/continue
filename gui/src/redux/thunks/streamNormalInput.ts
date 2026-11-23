@@ -176,13 +176,26 @@ export const streamNormalInput = createAsyncThunk<
       activeTools,
     );
 
+    // 注入工作区根目录：9B 小模型常猜错相对路径（如 cd apps/xxx），明确告知根目录和"不要瞎猜 cd"
+    let workspaceHint = "";
+    try {
+      const dirs = await extra.ideMessenger.ide.getWorkspaceDirs();
+      if (dirs.length > 0) {
+        workspaceHint = `工作区根目录：${dirs.join("、")}。所有相对路径基于此目录。终端命令已在此目录下执行，直接用相对路径即可，禁止 cd 到猜测的路径（如 cd apps/xxx）。`;
+      }
+    } catch (e) {
+      console.warn("Failed to get workspace dirs for system message:", e);
+    }
+
     const systemMessage = systemToolsFramework
       ? addSystemMessageToolsToSystemMessage(
           systemToolsFramework,
-          baseSystemMessage,
+          workspaceHint ? `${workspaceHint}\n\n${baseSystemMessage}` : baseSystemMessage,
           activeTools,
         )
-      : baseSystemMessage;
+      : workspaceHint
+        ? `${workspaceHint}\n\n${baseSystemMessage}`
+        : baseSystemMessage;
 
     const withoutMessageIds = state.session.history.map((item) => {
       const { id, ...messageWithoutId } = item.message;

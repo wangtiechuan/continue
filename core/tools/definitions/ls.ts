@@ -7,28 +7,28 @@ import { evaluateFileAccessPolicy } from "../policies/fileAccess";
 
 export const lsTool: Tool = {
   type: "function",
-  displayTitle: "ls",
-  wouldLikeTo: "list files in {{{ dirPath }}}",
-  isCurrently: "listing files in {{{ dirPath }}}",
-  hasAlready: "listed files in {{{ dirPath }}}",
+  displayTitle: "列出目录",
+  wouldLikeTo: "列出 {{{ dirPath }}} 下的文件",
+  isCurrently: "正在列出 {{{ dirPath }}} 下的文件",
+  hasAlready: "已列出 {{{ dirPath }}} 下的文件",
   readonly: true,
   isInstant: true,
   group: BUILT_IN_GROUP_NAME,
   function: {
     name: BuiltInToolNames.LSTool,
-    description: "List files and folders in a given directory",
+    description: "列出指定目录下的文件和文件夹",
     parameters: {
       type: "object",
       properties: {
         dirPath: {
           type: "string",
           description:
-            "The directory path. Can be relative to project root, absolute path, tilde path (~/...), or file:// URI. Use forward slash paths",
+            "目录路径。可以是相对路径（基于工作区根）、绝对路径、波浪路径（~/...）或 file:// URI。路径用正斜杠",
         },
         recursive: {
           type: "boolean",
           description:
-            "If true, lists files and folders recursively. To prevent unexpected large results, use this sparingly",
+            "为 true 时递归列出文件和文件夹。为避免结果过大，请谨慎使用",
         },
       },
     },

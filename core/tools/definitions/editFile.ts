@@ -8,23 +8,23 @@ export interface EditToolArgs {
 }
 
 export const NO_PARALLEL_TOOL_CALLING_INSTRUCTION =
-  "This tool CANNOT be called in parallel with any other tools, including itself";
+  "此工具不能与任何其他工具（包括自身）并行调用";
 
 const CHANGES_DESCRIPTION =
-  "Any modifications to the file, showing only needed changes. Do NOT wrap this in a codeblock or write anything besides the code changes. In larger files, use brief language-appropriate placeholders for large unmodified sections, e.g. '// ... existing code ...'";
+  "对文件的修改内容，只展示需要的改动。不要包在代码块里，也不要写代码改动以外的内容。较大的文件可用简洁占位符表示未改动的部分，如 '// ... existing code ...'";
 
 export const editFileTool: Tool = {
   type: "function",
-  displayTitle: "Edit File",
-  wouldLikeTo: "edit {{{ filepath }}}",
-  isCurrently: "editing {{{ filepath }}}",
-  hasAlready: "edited {{{ filepath }}}",
+  displayTitle: "编辑文件",
+  wouldLikeTo: "编辑 {{{ filepath }}}",
+  isCurrently: "正在编辑 {{{ filepath }}}",
+  hasAlready: "已编辑 {{{ filepath }}}",
   group: BUILT_IN_GROUP_NAME,
   readonly: false,
   isInstant: false,
   function: {
     name: BuiltInToolNames.EditExistingFile,
-    description: `Use this tool to edit an existing file. If you don't know the contents of the file, read it first.\n${EDIT_CODE_INSTRUCTIONS}\n${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}`,
+    description: `编辑已有文件。若不清楚文件内容，请先读取。\n${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}`,
     parameters: {
       type: "object",
       required: ["filepath", "changes"],
@@ -32,7 +32,7 @@ export const editFileTool: Tool = {
         filepath: {
           type: "string",
           description:
-            "The path of the file to edit, relative to the root of the workspace.",
+            "要编辑的文件路径，相对工作区根目录。",
         },
         changes: {
           type: "string",

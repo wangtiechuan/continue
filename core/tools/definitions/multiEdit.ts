@@ -18,7 +18,7 @@ export interface MultiEditArgs {
 
 export const multiEditTool: Tool = {
   type: "function",
-  displayTitle: "Multi Edit",
+  displayTitle: "批量查找替换",
   wouldLikeTo: "edit {{{ filepath }}}",
   isCurrently: "editing {{{ filepath }}}",
   hasAlready: "edited {{{ filepath }}}",
@@ -27,9 +27,9 @@ export const multiEditTool: Tool = {
   isInstant: false,
   function: {
     name: BuiltInToolNames.MultiEdit,
-    description: `Make multiple find-and-replace edits to a single file in one call.
-Args: filepath (relative to workspace root), edits (array of {old_string, new_string, replace_all?}).
-Rules: read the file first; old_string must match exactly (incl. whitespace); old_string != new_string; edits apply in order and atomically; make all edits to a file in one call.
+    description: `对单个文件一次调用完成多组查找替换。
+参数：filepath（相对工作区根）、edits（{old_string, new_string, replace_all?} 数组）。
+规则：先读取文件；old_string 必须精确匹配（含空白）；old_string 与 new_string 必须不同；edits 按顺序原子应用；对同一文件的所有改动尽量一次调用完成。
 ${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}`,
     parameters: {
       type: "object",
@@ -38,12 +38,12 @@ ${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}`,
         filepath: {
           type: "string",
           description:
-            "The path to the file to modify, relative to the root of the workspace",
+            "要修改的文件路径，相对工作区根目录",
         },
         edits: {
           type: "array",
           description:
-            "Array of edit operations to perform sequentially on the file",
+            "按顺序对文件执行的一组编辑操作",
           items: {
             type: "object",
             required: ["old_string", "new_string"],
@@ -51,17 +51,17 @@ ${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}`,
               old_string: {
                 type: "string",
                 description:
-                  "The text to replace (exact match including whitespace/indentation)",
+                  "要替换的文本（必须精确匹配，含空白/缩进）",
               },
               new_string: {
                 type: "string",
                 description:
-                  "The text to replace it with. MUST be different than old_string.",
+                  "替换后的文本，必须与 old_string 不同。",
               },
               replace_all: {
                 type: "boolean",
                 description:
-                  "Replace all occurrences of old_string (default false) in the file",
+                  "替换文件中所有 old_string（默认 false）",
               },
             },
           },

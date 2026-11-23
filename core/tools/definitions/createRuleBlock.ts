@@ -2,32 +2,32 @@ import { Tool } from "../..";
 import { BUILT_IN_GROUP_NAME, BuiltInToolNames } from "../builtIn";
 
 const NAME_ARG_DESC =
-  "Short, descriptive name summarizing the rule's purpose (e.g. 'React Standards', 'Type Hints')";
+  "简短描述规则用途的名称（如 React 规范、类型提示）";
 const RULE_ARG_DESC =
-  "Clear, imperative instruction for future code generation (e.g. 'Use named exports', 'Add Python type hints'). Each rule should focus on one specific standard.";
+  "清晰、祈使语气的指令，供后续代码生成遵循（如 使用命名导出、添加 Python 类型提示）。每条规则只聚焦一个标准。";
 const DESC_ARG_DESC =
-  "Description of when this rule should be applied. Required for Agent Requested rules (AI decides when to apply). Optional for other types.";
+  "规则何时适用的描述。Agent 请求型规则必填（由 AI 根据描述决定是否应用），其他类型可选。";
 const GLOB_ARG_DESC =
-  "Optional file patterns to which this rule applies (e.g. ['**/*.{ts,tsx}'] or ['src/**/*.ts', 'tests/**/*.ts'])";
+  "可选，规则适用的文件 glob 模式（如 **/*.{ts,tsx} 或 src/**/*.ts）";
 const REGEX_ARG_DESC =
-  "Optional regex patterns to match against file content. Rule applies only to files whose content matches the pattern (e.g. 'useEffect' for React hooks or '\\bclass\\b' for class definitions)";
+  "可选，用于匹配文件内容的正则。仅当文件内容匹配时应用（如 useEffect 匹配 React hooks）";
 
 const ALWAYS_APPLY_DESC =
-  "Whether this rule should always be applied. Set to false for Agent Requested and Manual rules. Omit or set to true for Always and Auto Attached rules.";
+  "是否始终应用该规则。Agent 请求型和手动型设为 false；始终型和自动附加型省略或设为 true。";
 
 export const createRuleBlock: Tool = {
   type: "function",
-  displayTitle: "Create Rule Block",
-  wouldLikeTo: 'create a rule block for "{{{ name }}}"',
-  isCurrently: 'creating a rule block for "{{{ name }}}"',
-  hasAlready: 'created a rule block for "{{{ name }}}"',
+  displayTitle: "新建规则",
+  wouldLikeTo: '为 "{{{ name }}}" 新建规则',
+  isCurrently: '正在为 "{{{ name }}}" 新建规则',
+  hasAlready: '已为 "{{{ name }}}" 新建规则',
   readonly: false,
   isInstant: true,
   group: BUILT_IN_GROUP_NAME,
   function: {
     name: BuiltInToolNames.CreateRuleBlock,
     description:
-      'Creates a "rule" that can be referenced in future conversations. This should be used whenever you want to establish code standards / preferences that should be applied consistently, or when you want to avoid making a mistake again. To modify existing rules, use the edit tool instead.\n\nRule Types:\n- Always: Include only "rule" (always included in model context)\n- Auto Attached: Include "rule", "globs", and/or "regex" (included when files match patterns)\n- Agent Requested: Include "rule" and "description" (AI decides when to apply based on description)\n- Manual: Include only "rule" (only included when explicitly mentioned using @ruleName)',
+      '创建一条可在后续对话中引用的规则。当你希望确立始终遵循的代码规范/偏好，或避免再次犯某个错误时使用。修改已有规则请改用编辑工具。\n\n规则类型：\n- 始终型：仅包含 rule（始终注入模型上下文）\n- 自动附加型：包含 rule 和 globs/regex（文件匹配模式时注入）\n- Agent 请求型：包含 rule 和 description（AI 根据描述决定何时应用）\n- 手动型：仅包含 rule（仅在使用 @规则名 显式提到时注入）',
     parameters: {
       type: "object",
       required: ["name", "rule"],

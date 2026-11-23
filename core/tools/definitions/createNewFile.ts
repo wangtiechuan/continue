@@ -6,17 +6,17 @@ import { evaluateFileAccessPolicy } from "../policies/fileAccess";
 
 export const createNewFileTool: Tool = {
   type: "function",
-  displayTitle: "Create New File",
-  wouldLikeTo: "create {{{ filepath }}}",
-  isCurrently: "creating {{{ filepath }}}",
-  hasAlready: "created {{{ filepath }}}",
+  displayTitle: "新建文件",
+  wouldLikeTo: "新建 {{{ filepath }}}",
+  isCurrently: "正在新建 {{{ filepath }}}",
+  hasAlready: "已新建 {{{ filepath }}}",
   group: BUILT_IN_GROUP_NAME,
   readonly: false,
   isInstant: true,
   function: {
     name: BuiltInToolNames.CreateNewFile,
     description:
-      "Create a new file. Only use this when a file doesn't exist and should be created",
+      "新建一个文件。仅在文件不存在且需要创建时使用",
     parameters: {
       type: "object",
       required: ["filepath", "contents"],
@@ -24,11 +24,11 @@ export const createNewFileTool: Tool = {
         filepath: {
           type: "string",
           description:
-            "The path where the new file should be created. Can be a relative path (from workspace root), absolute path, tilde path (~/...), or file:// URI.",
+            "新文件的创建路径。可以是相对路径（基于工作区根）、绝对路径、波浪路径（~/...）或 file:// URI。",
         },
         contents: {
           type: "string",
-          description: "The contents to write to the new file",
+          description: "写入新文件的内容",
         },
       },
     },

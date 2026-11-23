@@ -14,7 +14,7 @@ export interface SingleFindAndReplaceArgs {
 
 export const singleFindAndReplaceTool: Tool = {
   type: "function",
-  displayTitle: "Find and Replace",
+  displayTitle: "查找替换",
   wouldLikeTo: "edit {{{ filepath }}}",
   isCurrently: "editing {{{ filepath }}}",
   hasAlready: "edited {{{ filepath }}}",
@@ -23,18 +23,19 @@ export const singleFindAndReplaceTool: Tool = {
   isInstant: false,
   function: {
     name: BuiltInToolNames.SingleFindAndReplace,
-    description: `Performs exact string replacements in a file.
 
-IMPORTANT:
-- ALWAYS use the \`${BuiltInToolNames.ReadFile}\` tool just before making edits, to understand the file's up-to-date contents and context. The user can also edit the file while you are working with it.
+    description: `在文件中执行精确字符串替换。
+
+重要：
+- 编辑前务必先使用 \`${BuiltInToolNames.ReadFile}\` 工具读取文件最新内容。用户也可能在你工作时修改该文件。
 - ${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}
-- When editing text from \`${BuiltInToolNames.ReadFile}\` tool output, ensure you preserve exact whitespace/indentation.
-- Only use emojis if the user explicitly requests it. Avoid adding emojis to files unless asked.
-- Use \`replace_all\` for replacing and renaming strings across the file. This parameter is useful if you want to rename a variable, for instance.
+- 编辑 \`${BuiltInToolNames.ReadFile}\` 输出的文本时，必须保留原样的空白/缩进。
+- 除非用户明确要求，不要在文件中添加表情符号。
+- 全文件替换或重命名时使用 \`replace_all\`（如重命名变量）。
 
-WARNINGS:
-- When not using \`replace_all\`, the edit will FAIL if \`old_string\` is not unique in the file. Either provide a larger string with more surrounding context to make it unique or use \`replace_all\` to change every instance of \`old_string\`.
-- The edit will likely fail if you have not recently used the \`${BuiltInToolNames.ReadFile}\` tool to view up-to-date file contents.`,
+警告：
+- 不使用 \`replace_all\` 时，若 \`old_string\` 在文件中不唯一，替换会失败。请提供包含更多上下文更长字符串使其唯一，或使用 \`replace_all\` 替换全部。
+- 若最近没有用 \`${BuiltInToolNames.ReadFile}\` 读取文件最新内容，替换很可能失败。`,
     parameters: {
       type: "object",
       required: ["filepath", "old_string", "new_string"],
@@ -42,21 +43,21 @@ WARNINGS:
         filepath: {
           type: "string",
           description:
-            "The path to the file to modify, relative to the root of the workspace",
+            "要修改的文件路径，相对工作区根目录",
         },
         old_string: {
           type: "string",
           description:
-            "The text to replace - must be exact including whitespace/indentation",
+            "要替换的文本，必须精确匹配（含空白/缩进）",
         },
         new_string: {
           type: "string",
           description:
-            "The text to replace it with (MUST be different from old_string)",
+            "替换后的文本（必须与 old_string 不同）",
         },
         replace_all: {
           type: "boolean",
-          description: "Replace all occurrences of old_string (default false)",
+          description: "替换文件中所有 old_string（默认 false）",
         },
       },
     },

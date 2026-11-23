@@ -107,9 +107,9 @@ export async function evaluateToolPolicies(
         contextItems: [
           {
             icon: "problems",
-            name: "Security Policy Violation",
-            description: "Command Disabled",
-            content: `This command has been disabled by security policy:\n\n${command}\n\nThis command cannot be executed as it may pose a security risk.`,
+            name: "安全策略违规",
+            description: "命令已禁用",
+            content: `该命令已被安全策略禁用：\n\n${command}\n\n此命令存在安全风险，无法执行。`,
             hidden: false,
           },
         ],

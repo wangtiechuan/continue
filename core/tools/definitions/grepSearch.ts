@@ -3,17 +3,17 @@ import { BUILT_IN_GROUP_NAME, BuiltInToolNames } from "../builtIn";
 
 export const grepSearchTool: Tool = {
   type: "function",
-  displayTitle: "Grep Search",
-  wouldLikeTo: 'search for "{{{ query }}}"',
-  isCurrently: 'searching for "{{{ query }}}"',
-  hasAlready: 'searched for "{{{ query }}}"',
+  displayTitle: "正则搜索",
+  wouldLikeTo: '搜索 "{{{ query }}}"',
+  isCurrently: '正在搜索 "{{{ query }}}"',
+  hasAlready: '已搜索 "{{{ query }}}"',
   readonly: true,
   isInstant: true,
   group: BUILT_IN_GROUP_NAME,
   function: {
     name: BuiltInToolNames.GrepSearch,
     description:
-      "Performs a regular expression (regex) search over the repository using ripgrep. Will not include results for many build, cache, secrets dirs/files. Output may be truncated, so use targeted queries",
+      "用 ripgrep 在仓库中进行正则搜索。会排除大多数构建、缓存、密钥目录/文件。输出可能被截断，请使用精准的查询词",
     parameters: {
       type: "object",
       required: ["query"],
@@ -21,7 +21,7 @@ export const grepSearchTool: Tool = {
         query: {
           type: "string",
           description:
-            "The regex pattern to search for within file contents. Use regex with alternation (e.g., 'word1|word2|word3') or character classes to find multiple potential words in a single search.",
+            "要在文件内容中搜索的正则表达式。可用交替（如 word1|word2|word3）或字符类一次搜索多个词。",
         },
       },
     },

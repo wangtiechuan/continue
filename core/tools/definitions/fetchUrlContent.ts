@@ -3,24 +3,24 @@ import { BUILT_IN_GROUP_NAME, BuiltInToolNames } from "../builtIn";
 
 export const fetchUrlContentTool: Tool = {
   type: "function",
-  displayTitle: "Read URL",
-  wouldLikeTo: "fetch {{{ url }}}",
-  isCurrently: "fetching {{{ url }}}",
-  hasAlready: "fetched {{{ url }}}",
+  displayTitle: "读取网页",
+  wouldLikeTo: "抓取 {{{ url }}}",
+  isCurrently: "正在抓取 {{{ url }}}",
+  hasAlready: "已抓取 {{{ url }}}",
   readonly: true,
   isInstant: true,
   group: BUILT_IN_GROUP_NAME,
   function: {
     name: BuiltInToolNames.FetchUrlContent,
     description:
-      "Can be used to view the contents of a website using a URL. Do NOT use this for files.",
+      "通过 URL 查看网站内容。不要用于读取本地文件。",
     parameters: {
       type: "object",
       required: ["url"],
       properties: {
         url: {
           type: "string",
-          description: "The URL to read",
+          description: "要读取的 URL",
         },
       },
     },
