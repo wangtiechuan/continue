@@ -60,13 +60,12 @@ function IndexingProgress() {
       dispatch(
         setDialogMessage(
           <ConfirmationDialog
-            title="Rebuild codebase index"
-            confirmText="Rebuild"
+            title="重建代码库索引"
+            confirmText="重建"
             text={
-              "Your index appears corrupted. We recommend clearing and rebuilding it, " +
-              "which may take time for large codebases.\n\n" +
-              "For a faster rebuild without clearing data, press 'Shift + Command + P' to open " +
-              "the Command Palette, and type out 'Continue: Force Codebase Re-Indexing'"
+              "索引可能已损坏，建议清空后重建；大型代码库可能需要较长时间。\n\n" +
+              "若想不清空数据快速重建，请按 Shift + Command + P 打开命令面板，" +
+              "输入 Continue: Force Codebase Re-Indexing"
             }
             onConfirm={() => {
               ideMessenger.post("index/forceReIndex", {
@@ -100,8 +99,10 @@ function IndexingProgress() {
           profileId: undefined,
         });
         break;
+      case "cancelled":
       case "done":
         ideMessenger.post("index/forceReIndex", undefined);
+        break;
       default:
         break;
     }
