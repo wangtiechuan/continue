@@ -58,12 +58,10 @@ function EnableIndexingSetting() {
         type="toggle"
         description={
           <div className="text-foreground">
-            Allows indexing of your codebase for search and context
-            understanding.
+            对代码库建立索引，供语义搜索和上下文检索使用。
             <br />
             <br />
-            Note that indexing can consume significant system resources,
-            especially on larger codebases.
+            注意：索引会占用一定系统资源，代码库越大越明显。
           </div>
         }
         value={!disableIndexing}
@@ -86,17 +84,17 @@ export function IndexingSettingsSection() {
         <div className="space-y-4">
           <div>
             <div className="-mt-0.5 text-sm font-medium">
-              Indexing has been deprecated
+              索引功能已被官方标记为渐进弃用
             </div>
             <div className="mt-1 text-xs">
-              Learn how to{" "}
+              了解如何{" "}
               <a
                 href="https://docs.continue.dev/guides/codebase-documentation-awareness"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-inherit underline hover:brightness-125"
               >
-                make your agent aware of your codebase and documentation
+                让助手感知你的代码库和文档
               </a>
             </div>
           </div>
