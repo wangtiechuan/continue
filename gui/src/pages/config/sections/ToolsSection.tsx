@@ -462,16 +462,16 @@ export function ToolsSection() {
 
   const availableToolsMessage =
     mode === "chat"
-      ? "All tools disabled in Chat, switch to Plan or Agent mode to use tools"
+      ? "Chat 模式下所有工具已禁用，切到 Plan 或 Agent 模式即可使用工具"
       : mode === "plan"
-        ? "Read-only tools available in Plan mode"
+        ? "Plan 模式下仅只读工具可用"
         : "";
 
   return (
     <>
       <ConfigHeader
         title="工具"
-        subtext="Manage MCP servers and tool policies"
+        subtext="管理 MCP 服务器与工具权限策略"
         className="mb-2"
       />
       {!!availableToolsMessage && (
@@ -485,7 +485,7 @@ export function ToolsSection() {
         <ToolPoliciesGroup
           showIcon={false}
           groupName={BUILT_IN_GROUP_NAME}
-          displayName={"Built-in Tools"}
+          displayName={"内置工具"}
           allToolsOff={allToolsOff}
           duplicateDetection={duplicateDetection}
         />
@@ -494,7 +494,7 @@ export function ToolsSection() {
           title="MCP 服务器"
           variant="sm"
           onAddClick={handleAddMcpServer}
-          addButtonTooltip="Add MCP server"
+          addButtonTooltip="添加 MCP 服务器"
           showAddButton={!disableMcp}
         />
         {disableMcp ? (

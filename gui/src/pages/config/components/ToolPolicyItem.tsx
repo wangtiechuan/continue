@@ -140,22 +140,22 @@ export function ToolPolicyItem(props: ToolPolicyItemProps) {
                 >
                   <span className="text-xs">
                     {disabled || policy === "disabled"
-                      ? "Excluded"
+                      ? "已排除"
                       : policy === "allowedWithoutPermission"
-                        ? "Automatic"
-                        : "Ask First"}
+                        ? "自动"
+                        : "先询问"}
                   </span>
                   <ChevronDownIcon className="h-3 w-3" />
                 </ListboxButton>
                 {!disabled && (
                   <ListboxOptions className="min-w-0">
                     <ListboxOption value="allowedWithoutPermission">
-                      Automatic
+                      自动
                     </ListboxOption>
                     <ListboxOption value="allowedWithPermission">
-                      Ask First
+                      先询问
                     </ListboxOption>
-                    <ListboxOption value="disabled">Excluded</ListboxOption>
+                    <ListboxOption value="disabled">已排除</ListboxOption>
                   </ListboxOptions>
                 )}
               </div>

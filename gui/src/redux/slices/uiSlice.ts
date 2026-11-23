@@ -34,7 +34,8 @@ type UIState = {
   ttsActive: boolean;
 };
 
-export const DEFAULT_TOOL_SETTING: ToolPolicy = "allowedWithPermission";
+// 默认工具策略：本地 9B 模型自用场景，改"自动"避免每步都弹确认；个别危险工具可在配置页手动改回"先询问"
+export const DEFAULT_TOOL_SETTING: ToolPolicy = "allowedWithoutPermission";
 export const DEFAULT_RULE_SETTING: RulePolicy = "on";
 export const DEFAULT_UI_SLICE: UIState = {
   showDialog: false,
