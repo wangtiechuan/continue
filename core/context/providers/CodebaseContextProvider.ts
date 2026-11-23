@@ -9,8 +9,8 @@ import { retrieveContextItemsFromEmbeddings } from "../retrieval/retrieval";
 class CodebaseContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "codebase",
-    displayTitle: "Codebase",
-    description: "Automatically find relevant files",
+    displayTitle: "代码库",
+    description: "自动查找相关文件",
     type: "normal",
     renderInlineAs: "",
     dependsOnIndexing: ["embeddings", "fullTextSearch", "chunk"],

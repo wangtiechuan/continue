@@ -158,9 +158,14 @@ function InputToolbar(props: InputToolbarProps) {
                   }
                 >
                   {hasReasoningEnabled ? (
-                    <LightBulbIconSolid className="h-3 w-3 brightness-200 hover:brightness-150" />
+                    <div className="flex items-center gap-1 rounded-full bg-amber-400/15 px-2 py-0.5 text-amber-400 transition-colors duration-200 hover:brightness-125">
+                      <LightBulbIconSolid className="h-3.5 w-3.5" />
+                      <span className="text-[10px] font-medium leading-none">
+                        思考
+                      </span>
+                    </div>
                   ) : (
-                    <LightBulbIconOutline className="h-3 w-3 hover:brightness-150" />
+                    <LightBulbIconOutline className="h-3.5 w-3.5 text-description-muted hover:brightness-150" />
                   )}
                 </ToolTip>
               </HoverItem>

@@ -17,8 +17,8 @@ class DocsContextProvider extends BaseContextProvider {
   static nFinal = 15;
   static description: ContextProviderDescription = {
     title: "docs",
-    displayTitle: "Docs",
-    description: "Type to search docs",
+    displayTitle: "文档",
+    description: "输入关键词搜索文档",
     type: "submenu",
     // Todo: consider a different renderInline so that when multiple docs are referenced in one message,
     // Or the doc has an odd name unrelated to the content

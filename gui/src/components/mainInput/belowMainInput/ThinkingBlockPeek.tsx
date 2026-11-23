@@ -69,14 +69,14 @@ function ThinkingBlockPeek({
           >
             {inProgress ? (
               <span>
-                {redactedThinking ? "Redacted Thinking" : "Thinking"}
+                {redactedThinking ? "已隐藏思考" : "思考中"}
                 <AnimatedEllipsis />
               </span>
             ) : redactedThinking ? (
-              "Redacted Thinking"
+              "已隐藏思考"
             ) : (
-              "Thought" +
-              (elapsedTime ? ` for ${elapsedTime}` : "") +
+              "思考" +
+              (elapsedTime ? ` ${elapsedTime}` : "") +
               (tokens ? ` (${tokens} tokens)` : "")
             )}
             {open ? (
@@ -94,7 +94,7 @@ function ThinkingBlockPeek({
         >
           {redactedThinking ? (
             <div className="text-description pl-5 text-xs italic">
-              Thinking content redacted due to safety reasons.
+              思考内容因安全原因已隐藏。
             </div>
           ) : (
             <MarkdownWrapper>

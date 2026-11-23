@@ -10,8 +10,8 @@ import { BaseContextProvider } from "../index.js";
 class HttpContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "http",
-    displayTitle: "HTTP",
-    description: "Retrieve a context item from a custom server",
+    displayTitle: "HTTP 请求",
+    description: "从自定义服务器获取上下文项",
     type: "normal",
     renderInlineAs: "",
   };

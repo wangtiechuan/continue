@@ -8,8 +8,8 @@ import { BaseContextProvider } from "../index.js";
 class GoogleContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "google",
-    displayTitle: "Google",
-    description: "Attach the results of a Google search",
+    displayTitle: "谷歌搜索",
+    description: "附加谷歌搜索结果",
     type: "query",
   };
 

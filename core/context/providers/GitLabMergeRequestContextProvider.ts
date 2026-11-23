@@ -71,8 +71,8 @@ const getSubprocess = async (extras: ContextProviderExtras) => {
 class GitLabMergeRequestContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "gitlab-mr",
-    displayTitle: "GitLab Merge Request",
-    description: "Reference comments in a GitLab Merge Request",
+    displayTitle: "GitLab 合并请求",
+    description: "引用 GitLab 合并请求中的评论",
     type: "normal",
   };
 

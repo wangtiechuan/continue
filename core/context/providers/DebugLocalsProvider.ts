@@ -10,8 +10,8 @@ import { BaseContextProvider } from "../index.js";
 class DebugLocalsProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "debugger",
-    displayTitle: "Debugger",
-    description: "Local variables",
+    displayTitle: "调试器",
+    description: "局部变量",
     type: "submenu",
     renderInlineAs: "",
   };

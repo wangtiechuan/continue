@@ -13,7 +13,7 @@ class GreptileContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "greptile",
     displayTitle: "Greptile",
-    description: "Insert query to Greptile",
+    description: "输入查询到 Greptile",
     type: "query",
   };
 

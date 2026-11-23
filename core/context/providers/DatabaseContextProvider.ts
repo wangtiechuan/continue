@@ -12,8 +12,8 @@ import { BaseContextProvider } from "../index.js";
 class DatabaseContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "database",
-    displayTitle: "Database",
-    description: "Table schemas",
+    displayTitle: "数据库",
+    description: "数据表结构",
     type: "submenu",
     renderInlineAs: "",
   };

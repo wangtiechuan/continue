@@ -183,11 +183,11 @@ export function ContextItemsPeek({
         title ??
         (isGatheringContext ? (
           <>
-            Gathering context
+            正在获取上下文
             <AnimatedEllipsis />
           </>
         ) : (
-          `${ctxItems.length} context ${ctxItems.length > 1 ? "items" : "item"}`
+          `${ctxItems.length} 个上下文${ctxItems.length > 1 ? "项" : ""}`
         ))
       }
     >
@@ -197,7 +197,7 @@ export function ContextItemsPeek({
         ))
       ) : (
         <div className="text-description-muted pl-2 text-xs italic">
-          No results
+          无结果
         </div>
       )}
     </ToggleDiv>

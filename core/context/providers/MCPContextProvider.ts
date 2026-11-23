@@ -17,8 +17,8 @@ interface MCPContextProviderOptions {
 class MCPContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "mcp",
-    displayTitle: "MCP",
-    description: "MCP Resources",
+    displayTitle: "MCP 服务",
+    description: "MCP 资源",
     type: "submenu",
     renderInlineAs: "",
   };

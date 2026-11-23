@@ -22,8 +22,8 @@ const ENTIRE_PROJECT_ITEM: ContextSubmenuItem = {
 class RepoMapContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "repo-map",
-    displayTitle: "Repository Map",
-    description: "Select a folder",
+    displayTitle: "仓库结构",
+    description: "选择文件夹",
     type: "submenu",
   };
 

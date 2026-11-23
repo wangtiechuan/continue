@@ -248,14 +248,14 @@ const AtMentionDropdown = forwardRef((props: AtMentionDropdownProps, ref) => {
       void ideMessenger.ide.showToast(
         "warning",
         fileSize > 0
-          ? "File exceeds model's context length"
-          : "Error loading file",
+          ? "文件超出模型上下文长度"
+          : "加载文件出错",
         {
           modal: true,
           detail:
             fileSize > 0
-              ? `'${item.title}' cannot be added because it exceeds the model's allowed context length. File size: ${formatFileSize(fileSize)}`
-              : `'${item.title}' could not be loaded. Please check if the file exists and has the correct permissions.`,
+              ? `'${item.title}' 无法添加，因为它超出了模型的上下文长度。文件大小：${formatFileSize(fileSize)}`
+              : `'${item.title}' 无法加载，请检查文件是否存在且有正确的权限。`,
         },
       );
     } else {
@@ -265,9 +265,9 @@ const AtMentionDropdown = forwardRef((props: AtMentionDropdownProps, ref) => {
 
   useEffect(() => {
     const items = [...props.items];
-    if (subMenuTitle === "Type to search docs") {
+    if (subMenuTitle === "输入关键词搜索文档") {
       items.push({
-        title: "Add Docs",
+        title: "添加文档",
         type: "action",
         action: () => {
           dispatch(setShowDialog(true));
@@ -285,7 +285,7 @@ const AtMentionDropdown = forwardRef((props: AtMentionDropdownProps, ref) => {
       });
     } else if (subMenuTitle === ".prompt files") {
       items.push({
-        title: "New .prompt file",
+        title: "新建 .prompt 文件",
         type: "action",
         action: () => {
           ideMessenger.post("config/newPromptFile", undefined);
@@ -299,11 +299,11 @@ const AtMentionDropdown = forwardRef((props: AtMentionDropdownProps, ref) => {
           }
           props.onClose(); // Escape the mention list after creating a new prompt file
         },
-        description: "Create a new .prompt file",
+        description: "创建一个新的 .prompt 文件",
       });
-    } else if (subMenuTitle === "Mention rules files") {
+    } else if (subMenuTitle === "引用规则文件") {
       items.push({
-        title: "Add new rule",
+        title: "添加新规则",
         type: "action",
         action: () => {
           void ideMessenger.request("config/addLocalWorkspaceBlock", {
@@ -319,7 +319,7 @@ const AtMentionDropdown = forwardRef((props: AtMentionDropdownProps, ref) => {
           }
           props.onClose(); // Escape the mention list after creating a new rule
         },
-        description: "Creates a rule file",
+        description: "创建一个规则文件",
       });
     }
     setLoadingSubmenuItem(items.find((item) => item.id === "loading"));
@@ -612,7 +612,7 @@ const AtMentionDropdown = forwardRef((props: AtMentionDropdownProps, ref) => {
               );
             })
           ) : (
-            <ItemDiv className="item whitespace-nowrap">No results</ItemDiv>
+            <ItemDiv className="item whitespace-nowrap">无结果</ItemDiv>
           )}
         </>
       )}

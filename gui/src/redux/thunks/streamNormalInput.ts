@@ -13,6 +13,7 @@ import {
   setActive,
   setAppliedRulesAtIndex,
   setContextPercentage,
+  setHasAutoCompacted,
   setInactive,
   setInlineErrorMessage,
   setIsPruned,
@@ -37,6 +38,7 @@ import { callToolById } from "./callToolById";
 import { evaluateToolPolicies } from "./evaluateToolPolicies";
 import { preprocessToolCalls } from "./preprocessToolCallArgs";
 import { streamResponseAfterToolCall } from "./streamResponseAfterToolCall";
+import { loadSession } from "./session";
 
 /**
  * Builds completion options with reasoning configuration based on session state and model capabilities.
@@ -94,6 +96,40 @@ export const streamNormalInput = createAsyncThunk<
     if (!selectedChatModel) {
       throw new Error("No chat model selected");
     }
+
+    // 自动压缩：上下文占比 >=75% 且本会话未自动压缩过时，总结历史释放上下文
+    // 每会话只自动压一次，压完留在当前会话（历史被总结替换），用户可继续输入或新开会话
+    const maybeAutoCompact = async () => {
+      if (depth !== 0) return;
+      const cur = getState();
+      const pct = cur.session.contextPercentage;
+      const alreadyDone = cur.session.hasAutoCompacted;
+      const histLen = cur.session.history.length;
+      if (pct === undefined || pct < 0.75 || alreadyDone || histLen <= 4) {
+        return;
+      }
+      const sessionId = cur.session.id;
+      if (!sessionId) return;
+      dispatch(setHasAutoCompacted(true));
+      try {
+        const compactIndex = Math.max(0, histLen - 1);
+        await extra.ideMessenger.request("conversation/compact", {
+          index: compactIndex,
+          sessionId,
+        });
+        await dispatch(
+          loadSession({ sessionId, saveCurrentSession: false }),
+        );
+        // 压缩完成提示：留在当前会话，可继续或手动新开
+        void extra.ideMessenger.ide.showToast(
+          "info",
+          "上下文已自动压缩（>=75%），建议新开会话以获得最佳效果",
+        );
+      } catch (err) {
+        console.error("Auto-compact failed:", err);
+        dispatch(setHasAutoCompacted(false));
+      }
+    };
 
     // Get tools and apply model-level overrides (disabled, description, etc.)
     let activeTools = selectActiveTools(state);
@@ -333,6 +369,7 @@ export const streamNormalInput = createAsyncThunk<
     // 4. Execute remaining tool calls
     if (originalToolCalls.length === 0) {
       dispatch(setInactive());
+      void maybeAutoCompact();
     } else if (needsApprovalPolicies.length > 0) {
       const builtInReadonlyAutoApproved = autoApprovedPolicies.filter(
         ({ toolCallState }) =>
@@ -361,6 +398,7 @@ export const streamNormalInput = createAsyncThunk<
       }
 
       dispatch(setInactive());
+      void maybeAutoCompact();
     } else {
       // auto stream cases increase thunk depth by 1 for debugging
       const state4 = getState();
@@ -394,6 +432,7 @@ export const streamNormalInput = createAsyncThunk<
           );
         }
       }
+      void maybeAutoCompact();
     }
   },
 );

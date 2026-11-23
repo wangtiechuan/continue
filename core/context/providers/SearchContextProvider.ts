@@ -10,8 +10,8 @@ const DEFAULT_MAX_SEARCH_CONTEXT_RESULTS = 200;
 class SearchContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "search",
-    displayTitle: "Search",
-    description: "Use ripgrep to exact search the workspace",
+    displayTitle: "搜索",
+    description: "用 ripgrep 精确搜索工作区",
     type: "query",
     renderInlineAs: "",
   };

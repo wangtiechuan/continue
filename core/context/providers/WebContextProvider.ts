@@ -38,8 +38,8 @@ export default class WebContextProvider extends BaseContextProvider {
 
   static description: ContextProviderDescription = {
     title: "web",
-    displayTitle: "Web",
-    description: "Search the web",
+    displayTitle: "网页",
+    description: "搜索网页",
     type: "normal",
     renderInlineAs: "",
   };

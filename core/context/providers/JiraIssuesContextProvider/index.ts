@@ -12,8 +12,8 @@ import { JiraClient } from "./JiraClient.js";
 class JiraIssuesContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "jira",
-    displayTitle: "Jira Issues",
-    description: "Reference Jira issues",
+    displayTitle: "Jira 议题",
+    description: "引用 Jira 议题",
     type: "submenu",
   };
 

@@ -14,8 +14,8 @@ import { fetchFavicon } from "../../util/fetchFavicon";
 class URLContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "url",
-    displayTitle: "URL",
-    description: "Reference a webpage at a given URL",
+    displayTitle: "URL 网址",
+    description: "引用指定网址的网页内容",
     type: "query",
   };
 

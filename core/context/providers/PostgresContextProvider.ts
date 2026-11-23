@@ -11,7 +11,7 @@ class PostgresContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "postgres",
     displayTitle: "PostgreSQL",
-    description: "Retrieve PostgreSQL table schema and sample rows",
+    description: "获取 PostgreSQL 表结构和示例行",
     type: "submenu",
     renderInlineAs: "",
   };

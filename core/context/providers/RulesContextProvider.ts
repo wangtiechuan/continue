@@ -11,8 +11,8 @@ import {
 class RulesContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "rules",
-    displayTitle: "Rules",
-    description: "Mention rules files",
+    displayTitle: "规则",
+    description: "引用规则文件",
     type: "submenu",
     renderInlineAs: "",
   };

@@ -223,6 +223,8 @@ type SessionState = {
   contextPercentage?: number;
   inlineErrorMessage?: InlineErrorMessageType;
   compactionLoading: Record<number, boolean>; // Track compaction loading by message index
+  // 本会话是否已自动压缩过，防止循环触发；新会话时重置
+  hasAutoCompacted?: boolean;
 };
 
 export const INITIAL_SESSION_STATE: SessionState = {
@@ -695,6 +697,7 @@ export const sessionSlice = createSlice({
       state.inlineErrorMessage = undefined;
       state.isPruned = false;
       state.contextPercentage = undefined;
+      state.hasAutoCompacted = false;
 
       if (payload) {
         state.history = payload.history as any;
@@ -1001,6 +1004,9 @@ export const sessionSlice = createSlice({
     setContextPercentage: (state, action: PayloadAction<number>) => {
       state.contextPercentage = action.payload;
     },
+    setHasAutoCompacted: (state, action: PayloadAction<boolean>) => {
+      state.hasAutoCompacted = action.payload;
+    },
   },
   selectors: {
     selectIsGatheringContext: (state) => {
@@ -1058,6 +1064,7 @@ export const {
   updateSessionTitle,
   addHighlightedCode,
   addPromptCompletionPair,
+  setHasAutoCompacted,
   setActive,
   submitEditorAndInitAtIndex,
   truncateHistoryToMessage,

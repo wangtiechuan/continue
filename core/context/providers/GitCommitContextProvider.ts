@@ -39,8 +39,8 @@ const runGitCommand = (args: string[], cwd: string): Promise<string> => {
 class GitCommitContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "commit",
-    displayTitle: "Commits",
-    description: "Type to search",
+    displayTitle: "提交",
+    description: "输入关键词搜索",
     type: "submenu",
   };
 

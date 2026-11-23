@@ -10,8 +10,8 @@ import { BaseContextProvider } from "../index.js";
 class GitHubIssuesContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "issue",
-    displayTitle: "GitHub Issues",
-    description: "Reference GitHub issues",
+    displayTitle: "GitHub 议题",
+    description: "引用 GitHub 议题",
     type: "submenu",
   };
 

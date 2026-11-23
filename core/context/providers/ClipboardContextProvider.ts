@@ -13,8 +13,8 @@ const MAX_CLIPBOARD_ITEMS = 10;
 class ClipboardContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "clipboard",
-    displayTitle: "Clipboard",
-    description: "Recent copies",
+    displayTitle: "剪贴板",
+    description: "最近的剪贴板内容",
     type: "submenu",
   };
 

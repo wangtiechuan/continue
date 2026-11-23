@@ -32,7 +32,7 @@ class DiscordContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "discord",
     displayTitle: "Discord",
-    description: "Select a channel",
+    description: "选择频道",
     type: "submenu",
   };
 

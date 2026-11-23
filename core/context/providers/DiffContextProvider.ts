@@ -8,8 +8,8 @@ import { BaseContextProvider } from "../index.js";
 class DiffContextProvider extends BaseContextProvider {
   static description: ContextProviderDescription = {
     title: "diff",
-    displayTitle: "Git Diff",
-    description: "Reference the current git diff",
+    displayTitle: "Git 差异",
+    description: "引用当前 git 差异",
     type: "normal",
   };
 
