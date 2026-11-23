@@ -42,6 +42,12 @@ export const PROVIDER_TOOL_SUPPORT: Record<string, (model: string) => boolean> =
         return true;
       }
 
+      // Ornith models (e.g. ornith-15-9b) ship GGUF chat templates with
+      // native tool calling support; served via Ollama /v1 OpenAI-compat
+      if (lower.includes("ornith")) {
+        return true;
+      }
+
       // firworks-ai https://docs.fireworks.ai/guides/function-calling
       if (model.startsWith("accounts/fireworks/models/")) {
         switch (model.substring(26)) {
