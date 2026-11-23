@@ -30,7 +30,7 @@ export const readFileTool: Tool = {
     },
   },
   systemMessageDescription: {
-    prefix: `To read a file with a known filepath, use the ${BuiltInToolNames.ReadFile} tool. For example, to read a file located at 'path/to/file.txt', you would respond with this:`,
+    prefix: `要读取已知路径的文件，请使用 ${BuiltInToolNames.ReadFile} 工具。例如，要读取 'path/to/file.txt' 位置的文件，可以这样回复：`,
     exampleArgs: [["filepath", "path/to/the_file.txt"]],
   },
   defaultToolPolicy: "allowedWithoutPermission",

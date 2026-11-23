@@ -12,7 +12,7 @@ function getAvailableRules(rules: ConfigDependentToolParams["rules"]) {
   );
 
   if (agentRequestedRules.length === 0) {
-    return "No rules available.";
+    return "暂无可用规则。";
   }
 
   return agentRequestedRules
@@ -24,16 +24,16 @@ export function getRequestRuleDescription(
   rules: ConfigDependentToolParams["rules"],
 ): string {
   const prefix =
-    "Use this tool to retrieve additional 'rules' that contain more context/instructions based on their descriptions. Available rules:\n";
+    "使用此工具按描述获取包含更多上下文/指令的额外'规则'。可用规则：\n";
   return prefix + getAvailableRules(rules);
 }
 
 function getRequestRuleSystemMessageDescription(
   rules: ConfigDependentToolParams["rules"],
 ): string {
-  const prefix = `To retrieve "rules" that contain more context/instructions based on their descriptions, use the ${BuiltInToolNames.RequestRule} tool with the name of the rule. The available rules are:\n`;
+  const prefix = `要按描述获取包含更多上下文/指令的"规则"，请使用 ${BuiltInToolNames.RequestRule} 工具并传入规则名称。可用规则如下：\n`;
   const availableRules = getAvailableRules(rules);
-  const suffix = "\n\nFor example, you might respond with:";
+  const suffix = "\n\n例如，可以这样回复：";
   return prefix + availableRules + suffix;
 }
 

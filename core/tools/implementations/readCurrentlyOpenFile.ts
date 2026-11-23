@@ -22,7 +22,7 @@ export const readCurrentlyOpenFileImpl: ToolImpl = async (_, extras) => {
 
     return [
       {
-        name: `Current file: ${baseName}`,
+        name: `当前文件：${baseName}`,
         description: last2Parts,
         content: `\`\`\`${relativePathOrBasename}\n${result.contents}\n\`\`\``,
         uri: {
@@ -34,9 +34,9 @@ export const readCurrentlyOpenFileImpl: ToolImpl = async (_, extras) => {
   } else {
     return [
       {
-        name: `No Current File`,
+        name: `无当前文件`,
         description: "",
-        content: "There are no files currently open.",
+        content: "当前没有打开的文件。",
       },
     ];
   }

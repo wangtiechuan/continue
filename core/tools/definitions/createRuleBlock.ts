@@ -61,15 +61,15 @@ export const createRuleBlock: Tool = {
   },
   defaultToolPolicy: "disabled",
   systemMessageDescription: {
-    prefix: `Sometimes the user will provide feedback or guidance on your output. If you were not aware of these "rules", consider using the ${BuiltInToolNames.CreateRuleBlock} tool to persist the rule for future interactions.
-This tool cannot be used to edit existing rules, but you can search in the ".continue/rules" folder and use the edit tool to manage rules.
-To create a rule, respond with a ${BuiltInToolNames.CreateRuleBlock} tool call and the following arguments:
+    prefix: `有时用户会对你的输出提出反馈或指导。如果你不了解这些"规则"，可考虑使用 ${BuiltInToolNames.CreateRuleBlock} 工具将规则保存下来，供后续交互使用。
+此工具不能编辑已有规则，但可以在 ".continue/rules" 文件夹中搜索并使用编辑工具管理规则。
+要创建规则，请回复一个 ${BuiltInToolNames.CreateRuleBlock} 工具调用并传入以下参数：
 - name: ${NAME_ARG_DESC}
 - rule: ${RULE_ARG_DESC}
 - description: ${DESC_ARG_DESC}
 - globs: ${GLOB_ARG_DESC}
 - alwaysApply: ${ALWAYS_APPLY_DESC}
-For example:`,
+例如：`,
     exampleArgs: [
       ["name", "Use PropTypes"],
       [

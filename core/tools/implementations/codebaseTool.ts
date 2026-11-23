@@ -30,14 +30,14 @@ export const codebaseToolImpl: ToolImpl = async (args, extras) => {
     if (results.length === 0) {
       return [
         {
-          name: "No Results",
-          description: "Codebase search",
-          content: `No relevant code found for query: "${query}". This could mean:
-- The codebase hasn't been indexed yet
-- No code matches the search criteria
-- Embeddings provider is not configured
+          name: "无结果",
+          description: "代码库搜索",
+          content: `查询"${query}"未找到相关代码。可能的原因：
+- 代码库尚未索引
+- 没有匹配搜索条件的代码
+- 未配置嵌入提供者
 
-Try re-indexing the codebase or using a more specific query.`,
+请尝试重新索引代码库或使用更具体的查询。`,
         },
       ];
     }
@@ -47,8 +47,8 @@ Try re-indexing the codebase or using a more specific query.`,
     return [
       {
         name: "Error",
-        description: "Codebase search error",
-        content: `Failed to search codebase: ${error instanceof Error ? error.message : String(error)}`,
+        description: "代码库搜索错误",
+        content: `代码库搜索失败：${error instanceof Error ? error.message : String(error)}`,
       },
     ];
   }

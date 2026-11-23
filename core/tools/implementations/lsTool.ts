@@ -20,7 +20,7 @@ export const lsToolImpl: ToolImpl = async (args, extras) => {
   if (!resolvedPath) {
     throw new ContinueError(
       ContinueErrorReason.DirectoryNotFound,
-      `Directory ${args.dirPath} not found or is not accessible. You can use absolute paths, relative paths, or paths starting with ~`,
+      `目录 ${args.dirPath} 不存在或无法访问。可使用绝对路径、相对路径或以 ~ 开头的路径`,
     );
   }
 
@@ -36,23 +36,23 @@ export const lsToolImpl: ToolImpl = async (args, extras) => {
   let content =
     lines.length > 0
       ? lines.join("\n")
-      : `No files/folders found in ${resolvedPath.displayPath}`;
+      : `${resolvedPath.displayPath} 中未找到文件/文件夹`;
 
   const contextItems = [
     {
-      name: "File/folder list",
-      description: `Files/folders in ${resolvedPath.displayPath}`,
+      name: "文件/文件夹列表",
+      description: `${resolvedPath.displayPath} 中的文件/文件夹`,
       content,
     },
   ];
 
   if (entries.length > MAX_LS_TOOL_LINES) {
-    let warningContent = `${entries.length - MAX_LS_TOOL_LINES} ls entries were truncated`;
+    let warningContent = `${entries.length - MAX_LS_TOOL_LINES} 个 ls 条目被截断`;
     if (args?.recursive) {
-      warningContent += ". Try using a non-recursive search";
+      warningContent += "。请尝试使用非递归搜索";
     }
     contextItems.push({
-      name: "Truncation warning",
+      name: "截断提示",
       description: "",
       content: warningContent,
     });

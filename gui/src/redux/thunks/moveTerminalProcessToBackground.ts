@@ -29,7 +29,7 @@ export const moveTerminalProcessToBackground = createAsyncThunk<
     const toolCall = findToolCallById(state.session.history, toolCallId);
 
     if (!toolCall) {
-      console.error("Could not find tool call with ID:", toolCallId);
+      console.error("找不到对应 ID 的工具调用：", toolCallId);
       return;
     }
 
@@ -40,12 +40,12 @@ export const moveTerminalProcessToBackground = createAsyncThunk<
     const existingContent = existingOutput?.content || "";
 
     const status =
-      "Command moved to background. Further output will be ignored.";
+      "命令已移至后台运行，后续输出将被忽略。";
 
     const contextItems: ContextItem[] = [
       {
         name: "Terminal",
-        description: "Terminal command output",
+        description: "终端命令输出",
         content: existingContent,
         status: status,
       },

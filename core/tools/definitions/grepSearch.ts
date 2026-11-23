@@ -28,7 +28,7 @@ export const grepSearchTool: Tool = {
   },
   defaultToolPolicy: "allowedWithoutPermission",
   systemMessageDescription: {
-    prefix: `To perform a grep search within the project, call the ${BuiltInToolNames.GrepSearch} tool with the query pattern to match. For example:`,
+    prefix: `要在项目中执行 grep 搜索，请调用 ${BuiltInToolNames.GrepSearch} 工具并传入要匹配的查询模式。例如：`,
     exampleArgs: [["query", ".*main_services.*"]],
   },
   toolCallIcon: "MagnifyingGlassIcon",

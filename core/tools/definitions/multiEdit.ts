@@ -70,9 +70,9 @@ ${NO_PARALLEL_TOOL_CALLING_INSTRUCTION}`,
     },
   },
   systemMessageDescription: {
-    prefix: `To make multiple edits to a single file, use the ${BuiltInToolNames.MultiEdit} tool with a filepath (relative to the root of the workspace) and an array of edit operations.
+    prefix: `要对单个文件进行多处编辑，请使用 ${BuiltInToolNames.MultiEdit} 工具并传入文件路径（相对工作区根目录）和编辑操作数组。
 
-  For example, you could respond with:`,
+  例如，可以这样回复：`,
     exampleArgs: [
       ["filepath", "path/to/file.ts"],
       [

@@ -65,20 +65,20 @@ export class SystemMessageToolCodeblocksFramework
     return toolDefinition.trim();
   }
 
-  systemMessagePrefix = `You have access to tools. To call a tool, you MUST respond with EXACTLY the tool code block format shown below.
+  systemMessagePrefix = `你可以使用工具。要调用工具，你必须严格按照下方展示的工具代码块格式回复。
 
-CRITICAL: Follow the exact syntax. Do not use XML tags, JSON objects, or any other format for tool calls.`;
+关键：请严格遵循此语法。不要使用 XML 标签、JSON 对象或任何其他格式来调用工具。`;
 
-  systemMessageSuffix = `RULES FOR TOOL USE:
-1. To call a tool, output a tool code block using EXACTLY the format shown above.
-2. Always start the code block on a new line.
-3. You can only call ONE tool at a time.
-4. The tool code block MUST be the last thing in your response. Stop immediately after the closing fence.
-5. Do NOT wrap tool calls in XML tags like <tool_call> or <function=...>.
-6. Do NOT use JSON format for tool calls.
-7. Do NOT invent tools that are not listed above.
-8. If the user's request can be addressed with a listed tool, use it rather than guessing.
-9. Do not perform actions with hypothetical files. Use tools to find relevant files.`;
+  systemMessageSuffix = `工具使用规则：
+1. 调用工具时，严格按照上方展示的格式输出工具代码块。
+2. 代码块必须从新行开始。
+3. 每次只能调用一个工具。
+4. 工具代码块必须是回复中的最后内容。输出闭合标记后立即停止。
+5. 不要用 XML 标签（如 <tool_call> 或 <function=...>）包装工具调用。
+6. 不要用 JSON 格式调用工具。
+7. 不要编造上方未列出的工具。
+8. 如果用户的需求可以用已列出的工具解决，请使用工具，不要凭空猜测。
+9. 不要对假设存在的文件执行操作。使用工具来查找相关文件。`;
 
   exampleDynamicToolDefinition = `
 \`\`\`tool_definition

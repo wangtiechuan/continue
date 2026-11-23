@@ -24,7 +24,7 @@ export const generateToolsSystemMessage = (
   instructions.push(framework.systemMessagePrefix);
 
   if (withPredefinedMessage.length > 0) {
-    instructions.push(`\nThe following tools are available to you:`);
+    instructions.push(`\n以下工具可供你使用：`);
     for (const tool of withPredefinedMessage) {
       const definition = framework.createSystemMessageExampleCall(
         tool.function.name,
@@ -37,7 +37,7 @@ export const generateToolsSystemMessage = (
 
   if (withDynamicMessage.length > 0) {
     instructions.push(
-      `\nAlso, these additional tool definitions show other tools you can call with the same syntax:`,
+      `\n此外，以下额外的工具定义展示了你可以用相同语法调用的其他工具：`,
     );
 
     for (const tool of withDynamicMessage) {
@@ -52,9 +52,9 @@ export const generateToolsSystemMessage = (
       }
     }
 
-    instructions.push(`\nFor example, this tool definition:\n`);
+    instructions.push(`\n例如，这个工具定义：\n`);
     instructions.push(framework.exampleDynamicToolDefinition);
-    instructions.push("\nCan be called like this:\n");
+    instructions.push("\n可以这样调用：\n");
     instructions.push(framework.exampleDynamicToolCall);
   }
 

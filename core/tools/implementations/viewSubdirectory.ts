@@ -34,8 +34,8 @@ export const viewSubdirectoryImpl: ToolImpl = async (args: any, extras) => {
 
   return [
     {
-      name: "Repo map",
-      description: `Map of ${resolvedPath.displayPath}`,
+      name: "仓库地图",
+      description: `${resolvedPath.displayPath} 的地图`,
       content: repoMap,
     },
   ];

@@ -29,9 +29,9 @@ export const searchWebImpl: ToolImpl = async (args, extras) => {
   // Add truncation warning if needed
   if (truncatedResults.length > 0) {
     processedResults.push({
-      name: "Truncation warning",
+      name: "截断提示",
       description: "",
-      content: `The content from the following search results was truncated because it exceeded the ${DEFAULT_WEB_SEARCH_CHAR_LIMIT} character limit: ${truncatedResults.join(", ")}. For more detailed information, consider refining your search query.`,
+      content: `以下搜索结果的内容因超出 ${DEFAULT_WEB_SEARCH_CHAR_LIMIT} 字符限制而被截断：${truncatedResults.join("、")}。如需更详细的信息，请尝试优化搜索查询。`,
     });
   }
 

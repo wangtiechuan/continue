@@ -33,7 +33,7 @@ export const createNewFileImpl: ToolImpl = async (args, extras) => {
       {
         name: getUriPathBasename(resolvedFileUri),
         description: getCleanUriPath(resolvedFileUri),
-        content: "File created successfuly",
+        content: "文件创建成功",
         uri: {
           type: "file",
           value: resolvedFileUri,
@@ -43,7 +43,7 @@ export const createNewFileImpl: ToolImpl = async (args, extras) => {
   } else {
     throw new ContinueError(
       ContinueErrorReason.PathResolutionFailed,
-      "Failed to resolve path",
+      "路径解析失败",
     );
   }
 };

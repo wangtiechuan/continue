@@ -14,16 +14,16 @@ export const fileGlobSearchImpl: ToolImpl = async (args, extras) => {
   if (results.length === 0) {
     return [
       {
-        name: "File results",
-        description: "glob search",
-        content: "The glob search returned no results.",
+        name: "文件结果",
+        description: "glob 搜索",
+        content: "glob 搜索未返回任何结果。",
       },
     ];
   }
   const contextItems: ContextItem[] = [
     {
-      name: "File results",
-      description: "glob search",
+      name: "文件结果",
+      description: "glob 搜索",
       content: results.join("\n"),
     },
   ];
@@ -31,9 +31,9 @@ export const fileGlobSearchImpl: ToolImpl = async (args, extras) => {
   // In case of truncation, add a warning
   if (results.length === MAX_AGENT_GLOB_RESULTS) {
     contextItems.push({
-      name: "Truncation warning",
+      name: "截断提示",
       description: "",
-      content: `Warning: the results above were truncated to the first ${MAX_AGENT_GLOB_RESULTS} files. If the results are not satisfactory, refine your search pattern`,
+      content: `提示：上述结果被截断为前 ${MAX_AGENT_GLOB_RESULTS} 个文件。如果结果不理想，请优化搜索模式`,
     });
   }
 

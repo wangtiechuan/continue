@@ -88,11 +88,10 @@ export function ToolPolicyItem(props: ToolPolicyItemProps) {
                     className="flex flex-wrap items-center"
                     content={
                       <p className="m-0 p-0">
-                        <span>Duplicate tool name</span>{" "}
+                        <span>检测到重复的工具名称</span>{" "}
                         <code>{props.tool.function.name}</code>{" "}
                         <span>
-                          detected. Permissions will conflict and usage may be
-                          unpredictable
+                          。权限会相互冲突，使用行为可能不可预期
                         </span>
                       </p>
                     }
@@ -164,28 +163,28 @@ export function ToolPolicyItem(props: ToolPolicyItemProps) {
         </div>
         <Tooltip id={disabledTooltipId}>
           {mode === "chat"
-            ? "Tool disabled in chat mode"
+            ? "该工具在聊天模式下已禁用"
             : !props.isGroupEnabled
-              ? "Group is turned off"
-              : "Tool disabled in plan mode"}
+              ? "该分组已关闭"
+              : "该工具在计划模式下已禁用"}
         </Tooltip>
       </div>
       <div
         className={`flex flex-col overflow-hidden ${isExpanded ? "h-min" : "h-0 opacity-0"} gap-x-1 gap-y-2 pl-2 transition-all`}
       >
-        <span className="text-2xs mt-1.5 font-bold">Description:</span>
+        <span className="text-2xs mt-1.5 font-bold">描述：</span>
         <span className="text-2xs italic">
           {props.tool.function.description}
         </span>
         {parameters ? (
           <>
-            <span className="text-2xs font-bold">Arguments:</span>
+            <span className="text-2xs font-bold">参数：</span>
             {parameters.map((param, idx) => (
               <div key={idx} className="text-2xs block">
                 <code className="">{param[0]}</code>
-                <span className="ml-1">{`(${param[1].type ?? "unknown"}):`}</span>
+                <span className="ml-1">{`(${param[1].type ?? "未知"}):`}</span>
                 <span className="ml-1 italic">
-                  {param[1].description ?? "No description"}
+                  {param[1].description ?? "暂无描述"}
                 </span>
               </div>
             ))}

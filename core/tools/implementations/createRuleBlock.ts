@@ -38,13 +38,13 @@ export const createRuleBlockImpl: ToolImpl = async (args, extras) => {
 
   return [
     {
-      name: "New Rule Block",
+      name: "新规则",
       description: description || "",
       uri: {
         type: "file",
         value: ruleFilePath,
       },
-      content: `Rule created successfully`,
+      content: `规则创建成功`,
     },
   ];
 };

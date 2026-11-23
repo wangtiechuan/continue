@@ -146,7 +146,7 @@ async function callToolFromUri(
         if (item.type === "text") {
           contextItems.push({
             name: extras.tool.displayTitle,
-            description: "Tool output",
+            description: "工具输出",
             content: item.text,
             icon: extras.tool.faviconUrl,
           });
@@ -155,9 +155,9 @@ async function callToolFromUri(
           if (item.resource?.blob) {
             contextItems.push({
               name: extras.tool.displayTitle,
-              description: "MCP Item Error",
+            description: "MCP 项错误",
               content:
-                "Error: tool call received unsupported blob resource item",
+                "错误：工具调用收到了不支持的 blob 资源项",
               icon: extras.tool.faviconUrl,
             });
           }
@@ -165,15 +165,15 @@ async function callToolFromUri(
           // const uri = item.resource.uri;
           contextItems.push({
             name: extras.tool.displayTitle,
-            description: "Tool output",
+            description: "工具输出",
             content: item.resource.text,
             icon: extras.tool.faviconUrl,
           });
         } else {
           contextItems.push({
             name: extras.tool.displayTitle,
-            description: "MCP Item Error",
-            content: `Error: tool call received unsupported item of type "${item.type}"`,
+            description: "MCP 项错误",
+            content: `错误：工具调用收到了不支持的类型为 "${item.type}" 的项`,
             icon: extras.tool.faviconUrl,
           });
         }

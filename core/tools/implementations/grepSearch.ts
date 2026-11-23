@@ -28,8 +28,8 @@ function splitGrepResultsByFile(content: string): ContextItem[] {
 
     if (fileContent) {
       contextItems.push({
-        name: `Search results in ${filepath}`,
-        description: `Grep search results from ${filepath}`,
+        name: `${filepath} 中的搜索结果`,
+        description: `来自 ${filepath} 的 grep 搜索结果`,
         content: fileContent,
         uri: { type: "file", value: filepath },
       });
@@ -57,9 +57,9 @@ export const grepSearchImpl: ToolImpl = async (args, extras) => {
     if (errorMessage.includes("Process exited with code 2")) {
       return [
         {
-          name: "Search error",
-          description: "The search query could not be processed",
-          content: `The search failed due to an invalid regex pattern.\n\nOriginal query: ${rawQuery}\nProcessed query: ${query}\n\nError: ${errorMessage}\n\nTip: If you're searching for literal text with special characters, the query was automatically escaped. If you need regex patterns, ensure they use proper regex syntax.`,
+          name: "搜索错误",
+          description: "搜索查询无法处理",
+          content: `搜索因无效的正则表达式模式而失败。\n\n原始查询：${rawQuery}\n处理后查询：${query}\n\n错误：${errorMessage}\n\n提示：如果要搜索含特殊字符的字面文本，查询已被自动转义。如需正则模式，请确保使用正确的正则语法。`,
         },
       ];
     }
@@ -78,9 +78,9 @@ export const grepSearchImpl: ToolImpl = async (args, extras) => {
   if (numResults === 0) {
     return [
       {
-        name: "Search results",
-        description: "Results from grep search",
-        content: "The search returned no results.",
+        name: "搜索结果",
+        description: "grep 搜索结果",
+        content: "搜索未返回任何结果。",
       },
     ];
   }
@@ -88,12 +88,12 @@ export const grepSearchImpl: ToolImpl = async (args, extras) => {
   const truncationReasons: string[] = [];
   if (numResults === DEFAULT_GREP_SEARCH_RESULTS_LIMIT) {
     truncationReasons.push(
-      `the number of results exceeded ${DEFAULT_GREP_SEARCH_RESULTS_LIMIT}`,
+      `结果数超过 ${DEFAULT_GREP_SEARCH_RESULTS_LIMIT}`,
     );
   }
   if (truncated) {
     truncationReasons.push(
-      `the number of characters exceeded ${DEFAULT_GREP_SEARCH_CHAR_LIMIT}`,
+      `字符数超过 ${DEFAULT_GREP_SEARCH_CHAR_LIMIT}`,
     );
   }
 
@@ -105,8 +105,8 @@ export const grepSearchImpl: ToolImpl = async (args, extras) => {
   } else {
     contextItems = [
       {
-        name: "Search results",
-        description: "Results from grep search",
+        name: "搜索结果",
+        description: "grep 搜索结果",
         content: formatted,
       },
     ];
@@ -119,15 +119,15 @@ export const grepSearchImpl: ToolImpl = async (args, extras) => {
   }
   if (truncationReasons.length > 0) {
     warnings.push(
-      `Results were truncated because ${truncationReasons.join(" and ")}`,
+      `结果已截断，因为${truncationReasons.join("，且")}`,
     );
   }
 
   if (truncationReasons.length > 0) {
     contextItems.push({
-      name: "Truncation warning",
+      name: "截断提示",
       description: "",
-      content: `The above search results were truncated because ${truncationReasons.join(" and ")}. If the results are not satisfactory, try refining your search query.`,
+      content: `上述搜索结果因${truncationReasons.join("，且")}而被截断。如果结果不理想，请尝试优化搜索查询。`,
     });
   }
   return contextItems;

@@ -35,7 +35,7 @@ export const lsTool: Tool = {
   },
   defaultToolPolicy: "allowedWithoutPermission",
   systemMessageDescription: {
-    prefix: `To list files and folders in a given directory, call the ${BuiltInToolNames.LSTool} tool with "dirPath" and "recursive". For example:`,
+    prefix: `要列出指定目录下的文件和文件夹，请调用 ${BuiltInToolNames.LSTool} 工具并传入 "dirPath" 和 "recursive"。例如：`,
     exampleArgs: [
       ["dirPath", "path/to/dir"],
       ["recursive", "false"],

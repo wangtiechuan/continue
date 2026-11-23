@@ -31,7 +31,7 @@ Use the read file tool to access these files as needed.`;
 
   return [
     {
-      name: `Skill: ${skill.name}`,
+      name: `技能：${skill.name}`,
       description: skill.description,
       content,
       uri: {

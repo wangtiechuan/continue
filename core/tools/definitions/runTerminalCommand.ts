@@ -71,10 +71,10 @@ export const runTerminalCommandTool: Tool = {
     );
   },
   systemMessageDescription: {
-    prefix: `To run a terminal command, use the ${BuiltInToolNames.RunTerminalCommand} tool
+    prefix: `要运行终端命令，请使用 ${BuiltInToolNames.RunTerminalCommand} 工具
 ${RUN_COMMAND_NOTES}
-You can also optionally include the waitForCompletion argument set to false to run the command in the background.      
-For example, to see the git log, you could respond with:`,
+也可选传 waitForCompletion 参数并设为 false，让命令在后台运行。
+例如，查看 git 日志可以这样回复：`,
     exampleArgs: [["command", "git log"]],
   },
 };

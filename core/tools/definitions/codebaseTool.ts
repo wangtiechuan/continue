@@ -28,9 +28,9 @@ export const codebaseTool: Tool = {
   },
   defaultToolPolicy: "allowedWithPermission",
   systemMessageDescription: {
-    prefix: `To search the codebase, use the ${BuiltInToolNames.CodebaseTool} tool with a natural language query. For example, to find authentication logic, you might respond with:`,
+    prefix: `要在代码库中搜索，请使用 ${BuiltInToolNames.CodebaseTool} 工具并传入自然语言查询。例如，要查找认证逻辑，可以这样回复：`,
     exampleArgs: [
-      ["query", "How is user authentication handled in this codebase?"],
+      ["query", "本代码库中用户认证是如何实现的？"],
     ],
   },
 };

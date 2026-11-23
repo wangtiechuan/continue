@@ -63,9 +63,9 @@ export const singleFindAndReplaceTool: Tool = {
     },
   },
   systemMessageDescription: {
-    prefix: `To perform exact string replacements in files, use the ${BuiltInToolNames.SingleFindAndReplace} tool with a filepath (relative to the root of the workspace) and the strings to find and replace.
+    prefix: `要在文件中执行精确字符串替换，请使用 ${BuiltInToolNames.SingleFindAndReplace} 工具并传入文件路径（相对工作区根目录）以及要查找和替换的字符串。
 
-  For example, you could respond with:`,
+  例如，可以这样回复：`,
     exampleArgs: [
       ["filepath", "path/to/file.ts"],
       ["old_string", "const oldVariable = 'value'"],

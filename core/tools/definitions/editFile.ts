@@ -43,11 +43,11 @@ export const editFileTool: Tool = {
   },
   defaultToolPolicy: "allowedWithPermission",
   systemMessageDescription: {
-    prefix: `To edit an EXISTING file, use the ${BuiltInToolNames.EditExistingFile} tool with
-- filepath: the relative filepath to the file.
-- changes: ${CHANGES_DESCRIPTION}
-Only use this tool if you already know the contents of the file. Otherwise, use the ${BuiltInToolNames.ReadFile} or ${BuiltInToolNames.ReadCurrentlyOpenFile} tool to read it first.
-For example:`,
+    prefix: `要编辑已有文件，请使用 ${BuiltInToolNames.EditExistingFile} 工具并提供：
+- filepath：文件的相对路径。
+- changes：${CHANGES_DESCRIPTION}
+只有在已知文件内容时才使用此工具。否则请先用 ${BuiltInToolNames.ReadFile} 或 ${BuiltInToolNames.ReadCurrentlyOpenFile} 工具读取文件。
+例如：`,
     exampleArgs: [
       ["filepath", "path/to/the_file.ts"],
       [

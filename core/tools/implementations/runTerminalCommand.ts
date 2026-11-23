@@ -128,14 +128,14 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
           let sigkillTimeoutId: ReturnType<typeof setTimeout> | undefined;
 
           if (!waitForCompletion) {
-            const status = "Command is running in the background...";
+            const status = "命令正在后台运行…";
             if (extras.onPartialOutput) {
               extras.onPartialOutput({
                 toolCallId,
                 contextItems: [
                   {
-                    name: "Terminal",
-                    description: "Terminal command output",
+                    name: "终端",
+                    description: "终端命令输出",
                     content: "",
                     status: status,
                   },
@@ -180,10 +180,10 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
                     toolCallId,
                     contextItems: [
                       {
-                        name: "Terminal",
-                        description: "Terminal command output",
+                        name: "终端",
+                        description: "终端命令输出",
                         content: terminalOutput,
-                        status: "Command timed out",
+                        status: "命令超时",
                       },
                     ],
                   });
@@ -218,13 +218,13 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
             if (extras.onPartialOutput) {
               const status = waitForCompletion
                 ? ""
-                : "Command is running in the background...";
+                : "命令正在后台运行…";
               extras.onPartialOutput({
                 toolCallId,
                 contextItems: [
                   {
-                    name: "Terminal",
-                    description: "Terminal command output",
+                    name: "终端",
+                    description: "终端命令输出",
                     content: terminalOutput,
                     status: status,
                   },
@@ -251,8 +251,8 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
                 toolCallId,
                 contextItems: [
                   {
-                    name: "Terminal",
-                    description: "Terminal command output",
+                    name: "终端",
+                    description: "终端命令输出",
                     content: terminalOutput,
                   },
                 ],
@@ -262,11 +262,11 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
 
           // If we don't need to wait for completion, resolve immediately
           if (!waitForCompletion) {
-            const status = "Command is running in the background...";
+            const status = "命令正在后台运行…";
             resolve([
               {
-                name: "Terminal",
-                description: "Terminal command output",
+                name: "终端",
+                description: "终端命令输出",
                 content: terminalOutput,
                 status: status,
               },
@@ -297,11 +297,11 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
             if (waitForCompletion) {
               // Normal completion, resolve now
               if (!code || code === 0) {
-                const status = "Command completed";
+                const status = "命令已完成";
                 resolve([
                   {
-                    name: "Terminal",
-                    description: "Terminal command output",
+                    name: "终端",
+                    description: "终端命令输出",
                     content: terminalOutput,
                     status: status,
                   },
@@ -310,8 +310,8 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
                 const status = `Command failed with exit code ${code}`;
                 resolve([
                   {
-                    name: "Terminal",
-                    description: "Terminal command output",
+                    name: "终端",
+                    description: "终端命令输出",
                     content: terminalOutput,
                     status: status,
                   },
@@ -328,8 +328,8 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
                   toolCallId,
                   contextItems: [
                     {
-                      name: "Terminal",
-                      description: "Terminal command output",
+                      name: "终端",
+                      description: "终端命令输出",
                       content: terminalOutput,
                       status: status,
                     },
@@ -478,11 +478,11 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
             },
           );
 
-          const status = "Command completed";
+          const status = "命令已完成";
           return [
             {
-              name: "Terminal",
-              description: "Terminal command output",
+              name: "终端",
+              description: "终端命令输出",
               content: output.stdout ?? "",
               status: status,
             },
@@ -491,8 +491,8 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
           const status = `Command failed with: ${error.message || error.toString()}`;
           return [
             {
-              name: "Terminal",
-              description: "Terminal command output",
+              name: "终端",
+              description: "终端命令输出",
               content: error.stderr ?? error.toString(),
               status: status,
             },
@@ -529,11 +529,11 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
 
           // Unref the child to allow the Node.js process to exit
           childProc.unref();
-          const status = "Command is running in the background...";
+          const status = "命令正在后台运行…";
           return [
             {
-              name: "Terminal",
-              description: "Terminal command output",
+              name: "终端",
+              description: "终端命令输出",
               content: status,
               status: status,
             },
@@ -542,8 +542,8 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
           const status = `Command failed with: ${error.message || error.toString()}`;
           return [
             {
-              name: "Terminal",
-              description: "Terminal command output",
+              name: "终端",
+              description: "终端命令输出",
               content: status,
               status: status,
             },
@@ -559,11 +559,11 @@ export const runTerminalCommandImpl: ToolImpl = async (args, extras) => {
   await extras.ide.runCommand(command);
   return [
     {
-      name: "Terminal",
-      description: "Terminal command output",
+      name: "终端",
+      description: "终端命令输出",
       content:
-        "Command executed in remote terminal. Output capture is not yet available for remote environments.",
-      status: "Command executed",
+        "命令已在远程终端执行。远程环境暂不支持输出捕获。",
+      status: "命令已执行",
     },
   ];
 };

@@ -27,9 +27,9 @@ export const fetchUrlContentImpl: ToolImpl = async (args, extras) => {
   // Add truncation warning if needed
   if (truncatedUrls.length > 0) {
     processedItems.push({
-      name: "Truncation warning",
+      name: "截断提示",
       description: "",
-      content: `The content from ${truncatedUrls.join(", ")} was truncated because it exceeded the ${DEFAULT_FETCH_URL_CHAR_LIMIT} character limit. If you need more content, consider fetching specific sections or using a more targeted approach.`,
+      content: `来自 ${truncatedUrls.join("、")} 的内容因超出 ${DEFAULT_FETCH_URL_CHAR_LIMIT} 字符限制而被截断。如需更多内容，请尝试获取特定部分或使用更有针对性的方式。`,
     });
   }
 

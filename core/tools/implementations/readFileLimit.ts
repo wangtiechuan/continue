@@ -13,7 +13,7 @@ export async function throwIfFileExceedsHalfOfContext(
     if (tokens > tokenLimit) {
       throw new ContinueError(
         ContinueErrorReason.FileTooLarge,
-        `File ${filepath} is too large (${tokens} tokens vs ${tokenLimit} token limit). Try another approach`,
+      `文件 ${filepath} 过大（${tokens} tokens，超出 ${tokenLimit} token 限制）。请尝试其他方式`,
       );
     }
   }

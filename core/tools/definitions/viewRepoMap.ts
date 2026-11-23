@@ -20,7 +20,7 @@ export const viewRepoMapTool: Tool = {
     },
   },
   systemMessageDescription: {
-    prefix: `To view the repository map, use the ${BuiltInToolNames.ViewRepoMap} tool. This will provide a visual representation of the project's structure and organization.`,
+    prefix: `要查看仓库地图，请使用 ${BuiltInToolNames.ViewRepoMap} 工具。它会以可视化方式展示项目的结构和组织方式。`,
   },
   defaultToolPolicy: "allowedWithPermission",
   toolCallIcon: "MapIcon",

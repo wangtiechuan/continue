@@ -29,7 +29,7 @@ export const viewSubdirectoryTool: Tool = {
     },
   },
   systemMessageDescription: {
-    prefix: `To view a map of a specific folder within the project, you can use the ${BuiltInToolNames.ViewSubdirectory} tool. This will provide a visual representation of the folder's structure and organization.`,
+    prefix: `要查看项目内某个文件夹的地图，可使用 ${BuiltInToolNames.ViewSubdirectory} 工具。它会以可视化方式展示该文件夹的结构和组织方式。`,
     exampleArgs: [["directory_path", "path/to/subdirectory"]],
   },
   defaultToolPolicy: "allowedWithPermission",
