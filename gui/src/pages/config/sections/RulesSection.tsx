@@ -37,6 +37,7 @@ import { useBookmarkedSlashCommands } from "../../../hooks/useBookmarkedSlashCom
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   DEFAULT_RULE_SETTING,
+  getEffectiveRulePolicies,
   setDialogMessage,
   setShowDialog,
   toggleRuleSetting,
@@ -137,7 +138,7 @@ const RuleCard: React.FC<RuleCardProps> = ({ rule }) => {
   const ideMessenger = useContext(IdeMessengerContext);
   const policy = useAppSelector((state) =>
     rule.name
-      ? state.ui.ruleSettings[rule.name] || DEFAULT_RULE_SETTING
+      ? getEffectiveRulePolicies(state.ui)[rule.name] || DEFAULT_RULE_SETTING
       : undefined,
   );
 

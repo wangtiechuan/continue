@@ -16,6 +16,8 @@ export type ToolPolicies = { [toolName: string]: ToolPolicy };
 export type RulePolicies = { [ruleName: string]: RulePolicy };
 export type ToolGroupPolicies = { [toolGroupName: string]: ToolGroupPolicy };
 export type ReasoningSettings = { [modelTitle: string]: boolean };
+// 按工作区路径隔离的规则开关覆盖层；读取时与全局 ruleSettings 合并，工作区优先
+export type WorkspaceRuleSettings = { [workspacePath: string]: RulePolicies };
 
 type UIState = {
   showDialog: boolean;
@@ -27,6 +29,7 @@ type UIState = {
   toolSettings: ToolPolicies;
   toolGroupSettings: ToolGroupPolicies;
   ruleSettings: RulePolicies;
+  workspaceRuleSettings: WorkspaceRuleSettings;
   reasoningSettings: ReasoningSettings;
   ttsActive: boolean;
 };
@@ -48,8 +51,27 @@ export const DEFAULT_UI_SLICE: UIState = {
     [BUILT_IN_GROUP_NAME]: "include",
   },
   ruleSettings: {},
+  workspaceRuleSettings: {},
   reasoningSettings: {},
 };
+
+// 当前工作区的存储键：Webview 启动时由宿主注入 window.workspacePaths
+export function getCurrentWorkspaceKey(): string {
+  return window.workspacePaths?.[0] ?? "";
+}
+
+// 全局层与工作区层合并后的实际生效策略（工作区优先，其次全局，最后默认 on）
+export function getEffectiveRulePolicies(
+  state: UIState,
+  workspacePath: string = getCurrentWorkspaceKey(),
+): RulePolicies {
+  const globalLayer = state.ruleSettings;
+  const workspaceLayer = state.workspaceRuleSettings[workspacePath];
+  if (!workspaceLayer) {
+    return globalLayer;
+  }
+  return { ...globalLayer, ...workspaceLayer };
+}
 
 export const uiSlice = createSlice({
   name: "ui",
@@ -125,17 +147,23 @@ export const uiSlice = createSlice({
       state.ruleSettings[action.payload.name!] = DEFAULT_RULE_SETTING;
     },
     toggleRuleSetting: (state, action: PayloadAction<string>) => {
-      const setting = state.ruleSettings[action.payload];
+      const workspaceKey = getCurrentWorkspaceKey();
+      if (!state.workspaceRuleSettings[workspaceKey]) {
+        state.workspaceRuleSettings[workspaceKey] = {};
+      }
+      const effective = getEffectiveRulePolicies(state, workspaceKey);
+      const setting = effective[action.payload];
 
       switch (setting) {
         case "on":
-          state.ruleSettings[action.payload] = "off";
+          state.workspaceRuleSettings[workspaceKey][action.payload] = "off";
           break;
         case "off":
-          state.ruleSettings[action.payload] = "on";
+          state.workspaceRuleSettings[workspaceKey][action.payload] = "on";
           break;
         default:
-          state.ruleSettings[action.payload] = DEFAULT_RULE_SETTING;
+          state.workspaceRuleSettings[workspaceKey][action.payload] =
+            DEFAULT_RULE_SETTING;
           break;
       }
     },

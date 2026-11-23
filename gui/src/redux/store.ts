@@ -56,6 +56,7 @@ const saveSubsetFilters = [
     "toolSettings",
     "toolGroupSettings",
     "ruleSettings",
+    "workspaceRuleSettings",
     "reasoningSettings",
   ]),
   createFilter("indexing", []),

@@ -5,6 +5,7 @@ import { ToCoreProtocol } from "core/protocol";
 import { BUILT_IN_GROUP_NAME } from "core/tools/builtIn";
 import { selectActiveTools } from "../selectors/selectActiveTools";
 import { selectSelectedChatModel } from "../slices/configSlice";
+import { getEffectiveRulePolicies } from "../slices/uiSlice";
 import {
   abortStream,
   addPromptCompletionPair,
@@ -156,7 +157,7 @@ export const streamNormalInput = createAsyncThunk<
       withoutMessageIds,
       systemMessage,
       state.config.config.rules,
-      state.ui.ruleSettings,
+      getEffectiveRulePolicies(state.ui),
       systemToolsFramework,
     );
 
