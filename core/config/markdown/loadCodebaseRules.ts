@@ -48,6 +48,8 @@ export class CodebaseRulesCache {
       ...rule,
       source: "colocated-markdown",
       sourceFile: uri,
+      // 同目录 rules.md 只存在于工作区，属于项目级规则，默认关闭需手动开启
+      workspaceScoped: true,
     };
     const matchIdx = this.rules.findIndex((r) => r.sourceFile === uri);
     if (matchIdx === -1) {
@@ -105,6 +107,7 @@ export async function loadCodebaseRules(ide: IDE): Promise<{
             ...rule,
             source: "colocated-markdown",
             sourceFile: filePath,
+            workspaceScoped: true,
           });
         } else {
           console.warn(

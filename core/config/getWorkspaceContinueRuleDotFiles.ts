@@ -18,6 +18,7 @@ export async function getWorkspaceContinueRuleDotFiles(ide: IDE) {
           rule: content,
           sourceFile: dotFile,
           source: ".continuerules",
+          workspaceScoped: true,
         });
       }
     } catch (e) {
