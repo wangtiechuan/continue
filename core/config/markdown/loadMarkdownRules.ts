@@ -26,9 +26,7 @@ export async function loadMarkdownRules(
   // Agent files (AGENTS.md/CLAUDE.md) 默认自动注入全量内容且 alwaysApply，
   // 对本地小模型上下文负担大，可通过 experimental.disableAgentFiles 关闭
   let workspaceDirs: string[] = [];
-  if (loadAgentFiles) {
-    workspaceDirs = await ide.getWorkspaceDirs();
-  }
+  workspaceDirs = await ide.getWorkspaceDirs();
 
   for (const workspaceDir of workspaceDirs) {
     let agentFileFound = false;
@@ -65,6 +63,18 @@ export async function loadMarkdownRules(
   // Load markdown files from both .continue/rules and .continue/prompts
   const dirsToCheck = [RULES_DIR_NAME, PROMPTS_DIR_NAME];
 
+  // 判断规则文件是否位于某个工作区目录下（而非全局 ~/.continue/...）
+  const isUnderDir = (fileUri: string, dirUri: string): boolean => {
+    const normalize = (p: string) =>
+      p.replace(/\\/g, "/").replace(/^file:\/\//, "").replace(/\/+$/, "");
+    const file = normalize(fileUri);
+    const dir = normalize(dirUri);
+    if (!dir) {
+      return false;
+    }
+    return file === dir || file.startsWith(`${dir}/`);
+  };
+
   for (const dirName of dirsToCheck) {
     try {
       const markdownFiles = await getAllDotContinueDefinitionFiles(
@@ -92,6 +102,9 @@ export async function loadMarkdownRules(
               ...rule,
               source: "rules-block",
               sourceFile: file.path,
+              workspaceScoped: workspaceDirs.some((dir) =>
+                isUnderDir(file.path, dir),
+              ),
             });
           }
         } catch (e) {

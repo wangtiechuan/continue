@@ -138,7 +138,8 @@ const RuleCard: React.FC<RuleCardProps> = ({ rule }) => {
   const ideMessenger = useContext(IdeMessengerContext);
   const policy = useAppSelector((state) =>
     rule.name
-      ? getEffectiveRulePolicies(state.ui)[rule.name] || DEFAULT_RULE_SETTING
+      ? getEffectiveRulePolicies(state.ui)[rule.name] ||
+        (rule.workspaceScoped ? "off" : DEFAULT_RULE_SETTING)
       : undefined,
   );
 

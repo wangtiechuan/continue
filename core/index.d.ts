@@ -1931,6 +1931,9 @@ export interface RuleMetadata {
   sourceFile?: string;
   alwaysApply?: boolean;
   invokable?: boolean;
+  // 项目级（工作区 .continue/rules、.continue/prompts）规则标记；
+  // 这类来自仓库自带或第三方脚手架的规则默认关闭，需手动开启
+  workspaceScoped?: boolean;
 }
 export interface RuleWithSource extends RuleMetadata {
   rule: string;

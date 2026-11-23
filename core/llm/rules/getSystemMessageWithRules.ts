@@ -215,6 +215,12 @@ export const shouldApplyRule = (
     return false;
   }
 
+  // 项目级 .continue/rules 规则默认关闭（仓库自带/第三方脚手架），
+  // 必须有显式 "on" 策略才应用，防止贡献者规则污染小模型上下文
+  if (rule.workspaceScoped === true && policy !== "on") {
+    return false;
+  }
+
   // If it's a global rule, always apply it regardless of file paths
   if (isGlobalRule(rule)) {
     return true;
