@@ -88,7 +88,7 @@ function ContinueInputBox(props: ContinueInputBoxProps) {
   }, [availableContextProviders, isInEdit]);
 
   const historyKey = isInEdit ? "edit" : "chat";
-  const placeholder = isInEdit ? "Edit selected code" : undefined;
+  const placeholder = isInEdit ? "编辑选中的代码" : undefined;
 
   const toolbarOptions: ToolbarOptions = useMemo(() => {
     if (isInEdit) {

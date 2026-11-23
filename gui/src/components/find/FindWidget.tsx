@@ -225,7 +225,7 @@ export const useFindWidget = (
         onChange={(e) => {
           setCurrentValue(e.target.value);
         }}
-        placeholder="Search..."
+        placeholder="搜索..."
       />
       <p className="xs:block hidden min-w-12 whitespace-nowrap px-1 text-center text-xs">
         {matches.length === 0

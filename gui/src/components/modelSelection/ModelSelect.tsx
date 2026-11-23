@@ -252,7 +252,7 @@ function ModelSelect() {
           className="text-description h-[18px] gap-1 border-none"
         >
           <span className="line-clamp-1 break-all hover:brightness-110">
-            {modelSelectTitle(selectedModel) || "Select model"}
+            {modelSelectTitle(selectedModel) || "选择模型"}
           </span>
           <ChevronDownIcon
             className="hidden h-2 w-2 flex-shrink-0 hover:brightness-110 min-[200px]:flex"
@@ -261,7 +261,7 @@ function ModelSelect() {
         </ListboxButton>
         <ListboxOptions className="min-w-[160px]">
           <div className="flex items-center justify-between px-1.5 py-1">
-            <span className="text-description text-xs font-medium">Models</span>
+            <span className="text-description text-xs font-medium">模型</span>
             <div className="flex items-center gap-0.5">
               <Button
                 onClick={(e) => {
@@ -281,11 +281,11 @@ function ModelSelect() {
             {isConfigLoading ? (
               <div className="text-description flex items-center gap-2 px-2 pb-2 pt-1 text-xs">
                 <ArrowPathIcon className="animate-spin-slow h-3 w-3" />
-                <span>Loading config</span>
+                <span>正在加载配置</span>
               </div>
             ) : hasNoModels ? (
               <div className="text-description-muted px-2 py-4 text-center text-sm">
-                No models configured
+                未配置模型
               </div>
             ) : (
               sortedOptions.map((option, idx) => (

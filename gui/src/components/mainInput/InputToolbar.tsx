@@ -85,13 +85,13 @@ function InputToolbar(props: InputToolbarProps) {
       >
         <div className="xs:gap-1.5 flex flex-row items-center gap-1">
           {!isInEdit && (
-            <ToolTip place="top" content="Select Mode">
+            <ToolTip place="top" content="选择模式">
               <HoverItem className="!p-0">
                 <ModeSelect />
               </HoverItem>
             </ToolTip>
           )}
-          <ToolTip place="top" content="Select Model">
+          <ToolTip place="top" content="选择模型">
             <HoverItem className="!p-0">
               <ModelSelect />
             </HoverItem>
@@ -116,7 +116,7 @@ function InputToolbar(props: InputToolbarProps) {
                     }}
                   />
 
-                  <ToolTip place="top" content="Attach Image">
+                  <ToolTip place="top" content="添加图片">
                     <HoverItem className="">
                       <PhotoIcon
                         className="h-3 w-3 hover:brightness-125"
@@ -129,7 +129,7 @@ function InputToolbar(props: InputToolbarProps) {
                 </>
               ))}
             {props.toolbarOptions?.hideAddContext || (
-              <ToolTip place="top" content="Attach Context">
+              <ToolTip place="top" content="添加上下文">
                 <HoverItem onClick={props.onAddContextItem}>
                   <AtSymbolIcon className="h-3 w-3 hover:brightness-125" />
                 </HoverItem>
@@ -153,8 +153,8 @@ function InputToolbar(props: InputToolbarProps) {
                   place="top"
                   content={
                     hasReasoningEnabled
-                      ? "Disable model reasoning"
-                      : "Enable model reasoning"
+                      ? "关闭模型思考"
+                      : "开启模型思考"
                   }
                 >
                   {hasReasoningEnabled ? (
@@ -196,13 +196,13 @@ function InputToolbar(props: InputToolbarProps) {
                   place="top-end"
                   content={`${
                     useActiveFile
-                      ? "Send Without Active File"
-                      : "Send With Active File"
+                      ? "不携带当前文件发送"
+                      : "携带当前文件发送"
                   } (${getMetaKeyLabel()}⏎)`}
                 >
                   <span>
                     {getMetaKeyLabel()}⏎{" "}
-                    {useActiveFile ? "No active file" : "Active file"}
+                    {useActiveFile ? "无打开文件" : "当前文件"}
                   </span>
                 </ToolTip>
               </HoverItem>
@@ -217,11 +217,11 @@ function InputToolbar(props: InputToolbarProps) {
               }}
             >
               <span>
-                <i>Esc</i> to exit Edit
+                <i>Esc</i> 退出编辑
               </span>
             </HoverItem>
           )}
-          <ToolTip place="top" content="Send (⏎)">
+          <ToolTip place="top" content="发送 (⏎)">
             <Button
               variant={props.isMainInput ? "primary" : "secondary"}
               size="sm"

@@ -30,19 +30,18 @@ const ContextStatus = () => {
   }, [history.length, selectedChatModel]);
 
   const compactConversation = useCompactConversation();
-  if (!isPruned && percent < 60) {
-    return null;
-  }
 
   // if user changed to a different model, we shouldn't show the context status until the user sends a new message
   if (isDifferentModelAndSameHistory) {
     return null;
   }
 
-  const barColorClass = isPruned ? "bg-error" : "bg-description";
+  const barColorClass = isPruned ? "bg-error" : "bg-yellow-400";
+  // 用量低时低透明度常驻显示，不再整块隐藏
+  const dimClass = !isPruned && percent < 60 ? "opacity-30" : "opacity-100";
 
   return (
-    <div>
+    <div className={`flex items-center gap-1.5 ${dimClass}`}>
       <ToolTip
         closeEvents={{
           // blur: false,
@@ -53,13 +52,9 @@ const ContextStatus = () => {
         clickable
         content={
           <div className="flex flex-col gap-0 text-left text-xs">
-            <span className="inline-block">
-              {`${percent}% of context filled.`}
-            </span>
+            <span className="inline-block">上下文已用 {percent}%</span>
             {isPruned && (
-              <span className="inline-block">
-                {`Oldest messages are being removed.`}
-              </span>
+              <span className="inline-block">最早的几条消息已被自动裁剪。</span>
             )}
             {history.length > 0 && (
               <div className="flex flex-col gap-1 whitespace-pre">
@@ -68,7 +63,7 @@ const ContextStatus = () => {
                     className="hover:text-link inline-block cursor-pointer underline"
                     onClick={() => compactConversation(history.length - 1)}
                   >
-                    Compact conversation
+                    压缩当前对话
                   </span>
                   {"\n"}
                   <span
@@ -82,7 +77,7 @@ const ContextStatus = () => {
                       );
                     }}
                   >
-                    Start a new session
+                    新建会话
                   </span>
                 </div>
               </div>
@@ -90,11 +85,21 @@ const ContextStatus = () => {
           </div>
         }
       >
-        <div className="border-command-border relative h-[14px] w-[7px] rounded-[1px] border-[0.5px] border-solid md:h-[10px] md:w-[5px]">
+        <div className="flex items-center gap-1.5">
           <div
-            className={`transition-height absolute bottom-0 left-0 w-full duration-300 ease-in-out ${barColorClass}`}
-            style={{ height: `${percent}%` }}
-          />
+            className="bg-bg-200 relative h-[3px] w-16 overflow-hidden rounded-full md:w-20"
+            role="progressbar"
+            aria-label="上下文用量"
+            aria-valuenow={percent}
+          >
+            <div
+              className={`${barColorClass} absolute left-0 top-0 h-full rounded-full transition-all duration-300 ease-in-out`}
+              style={{ width: `${percent}%` }}
+            />
+          </div>
+          <span className="text-description shrink-0 text-[10px] leading-none">
+            {percent}%
+          </span>
         </div>
       </ToolTip>
     </div>

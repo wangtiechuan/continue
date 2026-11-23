@@ -78,21 +78,21 @@ function AddDocsDialog() {
   return (
     <div className="px-2 pt-4 sm:px-4">
       <div className="">
-        <h1 className="mb-0 hidden sm:block">Add documentation</h1>
-        <h1 className="sm:hidden">Add docs</h1>
+        <h1 className="mb-0 hidden sm:block">添加文档</h1>
+        <h1 className="sm:hidden">添加文档</h1>
         <p className="m-0 mt-2 p-0 text-stone-500">
-          Common documentation sites are cached for faster loading
+          常用文档站点已缓存，加载更快
         </p>
         <div className="mt-3">
           <form onSubmit={onSubmit} className="flex flex-col gap-1">
             <div className="flex flex-col gap-2">
               <label className="flex w-full flex-col gap-1">
                 <div className="flex flex-row items-center gap-1">
-                  <span>Title</span>
+                  <span>标题</span>
                   <div>
                     <ToolTip
                       place="top"
-                      content="The title that will be displayed to users in the `@docs` submenu"
+                      content="展示在 @docs 子菜单里的标题"
                     >
                       <InformationCircleIcon className="text-lightgray h-3.5 w-3.5 select-none" />
                     </ToolTip>
@@ -101,7 +101,7 @@ function AddDocsDialog() {
 
                 <Input
                   type="text"
-                  placeholder="Title"
+                  placeholder="标题"
                   value={title}
                   ref={titleRef}
                   onChange={(e) => setTitle(e.target.value)}
@@ -111,12 +111,12 @@ function AddDocsDialog() {
               <label className="flex w-full flex-col gap-1">
                 <div className="flex flex-row items-center gap-1">
                   <span className="line-clamp-1 whitespace-nowrap">
-                    Start URL
+                    起始链接
                   </span>
                   <div>
                     <ToolTip
                       place="top"
-                      content="The starting location to begin crawling the documentation site"
+                      content="爬取文档的起始地址"
                     >
                       <InformationCircleIcon className="text-lightgray h-3.5 w-3.5 select-none" />
                     </ToolTip>
@@ -125,7 +125,7 @@ function AddDocsDialog() {
                 <Input
                   ref={urlRef}
                   type="url"
-                  placeholder="Start URL"
+                  placeholder="起始链接"
                   value={startUrl}
                   onChange={(e) => {
                     setStartUrl(e.target.value);
