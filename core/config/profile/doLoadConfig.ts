@@ -22,6 +22,7 @@ import { MCPManagerSingleton } from "../../context/mcp/MCPManagerSingleton";
 import MCPContextProvider from "../../context/providers/MCPContextProvider";
 import { initSlashCommand } from "../../promptFiles/initPrompt";
 import { getConfigDependentToolDefinitions } from "../../tools";
+import { isRecommendedAgentModel } from "../../llm/toolSupport";
 import { encodeMCPToolUri } from "../../tools/callTool";
 import { getMCPToolName } from "../../tools/mcpToolName";
 import { GlobalContext } from "../../util/GlobalContext";
@@ -298,6 +299,30 @@ export default async function doLoadConfig(options: {
       ide,
     })),
   );
+
+  // 小模型（非推荐 agent 模型，如本地 9B）工具瘦身：
+  // 砍掉低频且 schema 较长的工具，减少发给模型的 token 占用和工具选择干扰。
+  // 开启 experimental tools 时保留全部工具，不受此限。
+  const chatModelForTools = newConfig.selectedModelByRole.chat?.model;
+  const experimentalOn =
+    newConfig.experimental?.enableExperimentalTools ?? false;
+  if (
+    chatModelForTools &&
+    !experimentalOn &&
+    !isRecommendedAgentModel(chatModelForTools)
+  ) {
+    const excludedForSmallModels = new Set<string>([
+      "view_diff",
+      "read_currently_open_file",
+      "create_rule_block",
+      "fetch_url_content",
+      "request_rule",
+      "read_skill",
+    ]);
+    newConfig.tools = newConfig.tools.filter(
+      (t) => !excludedForSmallModels.has(t.function.name),
+    );
+  }
 
   // Detect duplicate tool names
   const counts: Record<string, number> = {};
