@@ -345,10 +345,11 @@ export async function configYamlToContinueConfig(options: {
   // Add transformers js to the embed models in vs code if not already added
   if (
     ideInfo.ideType === "vscode" &&
-    !continueConfig.modelsByRole.embed.find(
-      (m) => m.providerName === "transformers.js",
-    )
+    continueConfig.modelsByRole.embed.length === 0
   ) {
+    // 仅当用户没有配置任何 embedding 模型时才追加内置 transformers.js 兜底。
+    // 原条件只检查是否已有 transformers.js，导致用户配了 Ollama/其它 embed
+    // 模型后，这个本机不可用的选项仍被无条件塞进菜单，误选必报错。
     continueConfig.modelsByRole.embed.push(
       new TransformersJsEmbeddingsProvider(),
     );
