@@ -24,7 +24,7 @@ export function ConfigsSection() {
   return (
     <>
       <ConfigHeader
-        title="Configs"
+        title="配置文件"
         onAddClick={handleAddConfig}
         addButtonTooltip="Add config"
       />

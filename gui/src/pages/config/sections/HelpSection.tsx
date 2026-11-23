@@ -172,7 +172,7 @@ export function HelpSection() {
 
   return (
     <div className="flex flex-col">
-      <ConfigHeader title="Help Center" />
+      <ConfigHeader title="帮助中心" />
       <div className="space-y-6">
         {/* Resources */}
         <div>
@@ -180,7 +180,7 @@ export function HelpSection() {
           <Card className="!p-0">
             <div className="flex flex-col">
               <ConfigRow
-                title="Documentation"
+                title="文档"
                 description="Learn how to configure and use Continue"
                 icon={LinkIcon}
                 onClick={() =>
@@ -197,7 +197,7 @@ export function HelpSection() {
           <Card className="!p-0">
             <div className="flex flex-col">
               <ConfigRow
-                title="Token usage"
+                title="Token 用量"
                 description="Daily token usage across models"
                 icon={TableCellsIcon}
                 onClick={() => navigate(ROUTES.STATS)}
@@ -206,7 +206,7 @@ export function HelpSection() {
               {currentSession.history.length > 0 &&
                 !currentSession.isStreaming && (
                   <ConfigRow
-                    title="View current session history"
+                    title="查看当前会话历史"
                     description="Open the current chat session file for troubleshooting"
                     icon={NumberedListIcon}
                     onClick={handleViewSessionData}
@@ -214,7 +214,7 @@ export function HelpSection() {
                 )}
 
               <ConfigRow
-                title="Quickstart"
+                title="快速上手"
                 description="Reopen the quickstart and tutorial file"
                 icon={DocumentArrowUpIcon}
                 onClick={async () => {
@@ -238,7 +238,7 @@ export function HelpSection() {
 
               {process.env.NODE_ENV === "development" && (
                 <ConfigRow
-                  title="Theme Test Page"
+                  title="主题测试页"
                   description="Development page for testing themes"
                   icon={PaintBrushIcon}
                   onClick={async () => {

@@ -54,7 +54,7 @@ function EnableIndexingSetting() {
   return (
     <div className="flex flex-col gap-4">
       <UserSetting
-        title="Enable indexing"
+        title="启用索引"
         type="toggle"
         description={
           <div className="text-foreground">
@@ -80,7 +80,7 @@ export function IndexingSettingsSection() {
 
   return (
     <>
-      <ConfigHeader title="Indexing" />
+      <ConfigHeader title="索引" />
 
       <Alert type="warning" className="mb-6">
         <div className="space-y-4">

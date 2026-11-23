@@ -338,7 +338,7 @@ function MCPServerPreview({
         />
         {server.prompts.length > 0 && (
           <ResourceRow
-            title="Prompts"
+            title="提示词"
             items={server.prompts}
             icon={
               <CommandLineIcon className="text-description h-4 w-4 flex-shrink-0" />
@@ -349,7 +349,7 @@ function MCPServerPreview({
         {(server.resources.length > 0 ||
           server.resourceTemplates.length > 0) && (
           <ResourceRow
-            title="Resources"
+            title="资源"
             items={[...server.resources, ...server.resourceTemplates]}
             icon={
               <CircleStackIcon className="text-description h-4 w-4 flex-shrink-0" />
@@ -470,7 +470,7 @@ export function ToolsSection() {
   return (
     <>
       <ConfigHeader
-        title="Tools"
+        title="工具"
         subtext="Manage MCP servers and tool policies"
         className="mb-2"
       />
@@ -491,7 +491,7 @@ export function ToolsSection() {
         />
         <ConfigHeader
           className="pr-2"
-          title="MCP Servers"
+          title="MCP 服务器"
           variant="sm"
           onAddClick={handleAddMcpServer}
           addButtonTooltip="Add MCP server"

@@ -72,7 +72,7 @@ export function ModelsSection() {
   return (
     <div className="space-y-4">
       <ConfigHeader
-        title="Models"
+        title="模型"
         onAddClick={handleAddModel}
         addButtonTooltip="Add model"
       />
@@ -173,8 +173,8 @@ export function ModelsSection() {
         <Toggle
           isOpen={showAdditionalRoles}
           onToggle={() => setShowAdditionalRoles(!showAdditionalRoles)}
-          title="Additional model roles"
-          subtitle="Apply, Embed, Rerank"
+          title="其他模型角色"
+          subtitle="应用补全、嵌入、重排序"
         >
           <div className="flex flex-col">
             <ModelRoleRow

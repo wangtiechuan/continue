@@ -174,7 +174,7 @@ const RuleCard: React.FC<RuleCardProps> = ({ rule }) => {
     dispatch(
       setDialogMessage(
         <ConfirmationDialog
-          title="Delete Rule"
+          title="删除规则"
           text="Are you sure you want to delete this rule file?"
           confirmText="Delete"
           onConfirm={async () => {
@@ -340,7 +340,7 @@ function PromptsSubSection() {
   return (
     <div>
       <ConfigHeader
-        title="Prompts"
+        title="提示词"
         variant="sm"
         onAddClick={handleAddPrompt}
         addButtonTooltip="Add prompt"
@@ -362,7 +362,7 @@ function PromptsSubSection() {
         </Card>
       ) : (
         <Card>
-          <EmptyState message="No prompts configured. Click the + button to add your first prompt." />
+          <EmptyState message="暂无提示词。点击 + 按钮添加第一个提示词。" />
         </Card>
       )}
     </div>
@@ -487,7 +487,7 @@ function RulesSubSection() {
   return (
     <div>
       <DropdownButton
-        title="Rules"
+        title="规则"
         variant="sm"
         options={globalRulesOptions}
         onOptionClick={handleOptionClick}
@@ -507,7 +507,7 @@ function RulesSubSection() {
             )}
           </div>
         ) : (
-          <EmptyState message="No rules configured. Click the + button to add your first rule." />
+          <EmptyState message="暂无规则。点击 + 按钮添加第一条规则。" />
         )}
       </Card>
     </div>
@@ -517,7 +517,7 @@ function RulesSubSection() {
 export function RulesSection() {
   return (
     <>
-      <ConfigHeader title="Rules" />
+      <ConfigHeader title="规则" />
 
       <div className="space-y-6">
         <RulesSubSection />
