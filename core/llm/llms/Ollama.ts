@@ -154,7 +154,10 @@ class Ollama extends BaseLLM implements ModelInstaller {
   static defaultOptions: Partial<LLMOptions> = {
     apiBase: "http://localhost:11434/",
     model: "codellama-7b",
-    maxEmbeddingBatchSize: 64,
+    // 原值 64：Ollama 会把批次内多条 input 拼进同一条序列再按 num_ctx 截断，
+    // 64 条 × 最多 500 token = 3.2 万 token 远超默认 2048 上下文，尾部 token 被静默丢弃，
+    // 向量质量劣化。4 条 × 500 = 2000 token，留有余量。
+    maxEmbeddingBatchSize: 4,
   };
 
   private static modelsBeingInstalled: Set<string> = new Set();

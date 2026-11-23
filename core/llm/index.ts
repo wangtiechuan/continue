@@ -1348,30 +1348,41 @@ export abstract class BaseLLM implements ILLM {
   async embed(chunks: string[]): Promise<number[][]> {
     const batches = this.getBatchedChunks(chunks);
 
+    const embedBatch = async (batch: string[]): Promise<number[][]> => {
+      if (batch.length === 0) {
+        return [];
+      }
+      return withExponentialBackoff<number[][]>(async () => {
+        if (this.shouldUseOpenAIAdapter("embed") && this.openaiAdapter) {
+          const result = await this.openaiAdapter.embed({
+            model: this.model,
+            input: batch,
+          });
+          return result.data.map((chunk) => chunk.embedding);
+        }
+
+        return await this._embed(batch);
+      });
+    };
+
+    // 本地推理服务（Ollama / LM Studio 等，apiBase 指向 localhost）通常是单并发 runner，
+    // 并发 /api/embed 会触发 runner 的 tokenize 端点 connection reset（实测 6 并发 3 个 400）。
+    // 数组顺序执行规避并发崩溃；云端 apiBase 不受影响，仍走并发路径。
+    const isLocalServingApiBase =
+      !!this.apiBase &&
+      (this.apiBase.includes("localhost") ||
+        this.apiBase.includes("127.0.0.1"));
+
+    if (isLocalServingApiBase) {
+      const results: number[][][] = [];
+      for (const batch of batches) {
+        results.push(await embedBatch(batch));
+      }
+      return results.flat();
+    }
+
     return (
-      await Promise.all(
-        batches.map(async (batch) => {
-          if (batch.length === 0) {
-            return [];
-          }
-
-          const embeddings = await withExponentialBackoff<number[][]>(
-            async () => {
-              if (this.shouldUseOpenAIAdapter("embed") && this.openaiAdapter) {
-                const result = await this.openaiAdapter.embed({
-                  model: this.model,
-                  input: batch,
-                });
-                return result.data.map((chunk) => chunk.embedding);
-              }
-
-              return await this._embed(batch);
-            },
-          );
-
-          return embeddings;
-        }),
-      )
+      await Promise.all(batches.map(async (batch) => embedBatch(batch)))
     ).flat();
   }
 
