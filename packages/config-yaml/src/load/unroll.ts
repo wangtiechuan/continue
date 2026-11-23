@@ -32,6 +32,20 @@ import { BlockType, getBlockType } from "./getBlockType.js";
 export function parseConfigYaml(configYaml: string): ConfigYaml {
   try {
     const parsed = YAML.parse(configYaml);
+    // 旧 config.json 的顶层键（embeddingsProvider/reranker）在 YAML schema 里会被静默剥离，
+    // 配置看起来生效实则被忽略（曾引发索引静默回退 transformers.js 直到全量失败）。
+    // 在 schema 剥离前先报错，把静默忽略变成显式提示。
+    const legacyTopLevelKeys = parsed
+      ? (["embeddingsProvider", "reranker"] as const).filter((k) =>
+          k in (parsed as Record<string, unknown>),
+        )
+      : [];
+    if (legacyTopLevelKeys.length > 0) {
+      throw new Error(
+        `顶层 ${legacyTopLevelKeys.join("、")} 键在 YAML 配置中已废弃且不生效（会被静默忽略）。` +
+          `请改在 models 列表里声明对应模型并设置 roles：embedding 用 roles: [embed]，重排用 roles: [rerank]。`,
+      );
+    }
     const result = configYamlSchema.safeParse(parsed);
     if (result.success) {
       return result.data;
