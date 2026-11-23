@@ -6,14 +6,14 @@ export interface IndexingProgressTitleTextProps {
 }
 
 const STATUS_TO_TEXT: Record<IndexingProgressUpdate["status"], string> = {
-  done: "Indexing complete",
-  loading: "Initializing",
-  waiting: "Indexing other workspace",
-  indexing: "Indexing in-progress",
-  paused: "Indexing paused",
-  failed: "Indexing failed",
-  disabled: "Indexing disabled",
-  cancelled: "Indexing cancelled",
+  done: "索引完成",
+  loading: "初始化中",
+  waiting: "正在索引其他工作区",
+  indexing: "索引进行中",
+  paused: "索引已暂停",
+  failed: "索引失败",
+  disabled: "索引已禁用",
+  cancelled: "索引已取消",
 };
 
 function IndexingProgressTitleText({ update }: IndexingProgressTitleTextProps) {
