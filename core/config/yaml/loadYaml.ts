@@ -227,6 +227,7 @@ export async function configYamlToContinueConfig(options: {
           file.content,
         );
         if (slashCommand) {
+          slashCommand.workspaceScoped = file.workspaceScoped ?? false;
           continueConfig.slashCommands?.push(slashCommand);
         }
       } catch (e) {

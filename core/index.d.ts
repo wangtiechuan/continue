@@ -958,6 +958,9 @@ export interface SlashCommandDescription {
   description: string;
   prompt?: string;
   params?: { [key: string]: any };
+  // 项目级提示词标记（来自工作区 .continue/prompts、.continue/rules），
+  // 配置页默认折叠，需要手动展开，避免贡献者提示词淹没用户自己的提示词
+  workspaceScoped?: boolean;
 }
 
 export interface SlashCommand extends SlashCommandDescription {

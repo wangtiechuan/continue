@@ -288,6 +288,8 @@ function PromptsSubSection() {
   const { selectedProfile } = useAuth();
   const { isCommandBookmarked, toggleBookmark } = useBookmarkedSlashCommands();
   const ideMessenger = useContext(IdeMessengerContext);
+  // 项目自带提示词（工作区 .continue/...）默认折叠，避免淹没用户自己的提示词
+  const [showProjectPrompts, setShowProjectPrompts] = useState(false);
 
   const slashCommands = useAppSelector(
     (state) => state.config.config.slashCommands ?? [],
@@ -338,6 +340,15 @@ function PromptsSubSection() {
     });
   }, [slashCommands, isCommandBookmarked, selectedProfile]);
 
+  const ownCommands = useMemo(
+    () => sortedCommands.filter((p) => p.workspaceScoped !== true),
+    [sortedCommands],
+  );
+  const projectCommands = useMemo(
+    () => sortedCommands.filter((p) => p.workspaceScoped === true),
+    [sortedCommands],
+  );
+
   return (
     <div>
       <ConfigHeader
@@ -350,7 +361,7 @@ function PromptsSubSection() {
       {sortedCommands.length > 0 ? (
         <Card>
           <div>
-            {sortedCommands.map((prompt) => (
+            {ownCommands.map((prompt) => (
               <PromptRow
                 key={prompt.name}
                 prompt={prompt}
@@ -359,6 +370,37 @@ function PromptsSubSection() {
                 onEdit={() => handleEdit(prompt)}
               />
             ))}
+            {projectCommands.length > 0 && (
+              <div className="mt-1 border-t border-border pt-1">
+                <div
+                  className="flex cursor-pointer items-center justify-between px-2 py-1 hover:bg-list-active"
+                  onClick={() => setShowProjectPrompts((v) => !v)}
+                >
+                  <span
+                    className="text-gray-400"
+                    style={{ fontSize: fontSize(-3) }}
+                  >
+                    项目自带提示词（{projectCommands.length} 条，默认不展开）
+                  </span>
+                  <Switch
+                    isToggled={showProjectPrompts}
+                    onToggle={() => setShowProjectPrompts((v) => !v)}
+                    size={10}
+                    text=""
+                  />
+                </div>
+                {showProjectPrompts &&
+                  projectCommands.map((prompt) => (
+                    <PromptRow
+                      key={prompt.name}
+                      prompt={prompt}
+                      isBookmarked={isCommandBookmarked(prompt.name)}
+                      setIsBookmarked={() => toggleBookmark(prompt)}
+                      onEdit={() => handleEdit(prompt)}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         </Card>
       ) : (

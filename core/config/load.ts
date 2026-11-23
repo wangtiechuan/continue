@@ -193,6 +193,7 @@ async function serializedToIntermediateConfig(
   for (const file of promptFiles) {
     const slashCommand = slashCommandFromPromptFile(file.path, file.content);
     if (slashCommand) {
+      slashCommand.workspaceScoped = file.workspaceScoped ?? false;
       slashCommands.push(slashCommand);
     }
   }
