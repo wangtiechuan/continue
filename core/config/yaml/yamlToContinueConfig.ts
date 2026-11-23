@@ -14,9 +14,13 @@ import {
 
 export function convertYamlRuleToContinueRule(rule: Rule): RuleWithSource {
   if (typeof rule === "string") {
+    // 字符串规则原本没有 name，导致设置页 Rules 的 on/off 开关失效
+    // （toggle 需要 name 才触发，且空 name 会让所有匿名规则共用同一 policy key）。
+    // 取内容前 20 字符做展示名，让每条规则可被单独开关。
     return {
       rule: rule,
       source: "rules-block",
+      name: rule.replace(/\s+/g, " ").trim().slice(0, 20),
     };
   } else {
     return {
