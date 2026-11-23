@@ -589,24 +589,33 @@ export class CodebaseIndexer {
         if (totalOps > 0) {
           for (const subResult of this.batchRefreshIndexResults(results)) {
             try {
-              for await (const { desc } of codebaseIndex.update(
+              // 批次内操作数，用于插值计算子生成器内的进度
+              const batchOps =
+                subResult.compute.length +
+                subResult.del.length +
+                subResult.addTag.length +
+                subResult.removeTag.length;
+              for await (const update of codebaseIndex.update(
                 tag,
                 subResult,
                 markComplete,
                 repoName,
               )) {
+                // 用子生成器内部的 progress 实时插值，避免整批执行期间进度条冻结
+                const subFraction =
+                  batchOps > 0 ? (update.progress ?? 0) : 1;
+                progress =
+                  (completedIndexCount +
+                    (completedOps + subFraction * batchOps) / totalOps) *
+                  (1 / indexesToBuild.length);
                 yield {
                   progress,
-                  desc,
+                  desc: update.desc,
                   status: "indexing",
                   warnings: warnings.length > 0 ? [...warnings] : undefined,
                 };
               }
-              completedOps +=
-                subResult.compute.length +
-                subResult.del.length +
-                subResult.addTag.length +
-                subResult.removeTag.length;
+              completedOps += batchOps;
               progress =
                 (completedIndexCount + completedOps / totalOps) *
                 (1 / indexesToBuild.length);

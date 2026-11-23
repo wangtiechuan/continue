@@ -298,10 +298,28 @@ export class LanceDbIndex implements CodebaseIndex {
       status: "indexing",
     };
 
-    const dbRows = await this.computeRows(results.compute);
-    await this.insertRows(sqliteDb, dbRows);
-    await addComputedLanceDbRows(results.compute, dbRows);
-    let accumulatedProgress = 0;
+    // 分批计算嵌入向量：避免一次性把数百个文件的 chunk 全部发给 Ollama 导致连接复位，
+    // 同时每批完成后 yield 进度，配合 CodebaseIndexer 的插值逻辑保持进度条实时推进。
+    // 批次大小 20：单批约 100-300 chunks，Ollama 内部再按 maxEmbeddingBatchSize=16 串行处理。
+    const COMPUTE_BATCH_SIZE = 20;
+    // compute 阶段占总进度的前 70%，剩余 30% 分给 addTag / removeTag / del 三个阶段
+    const computePhaseMax = results.compute.length > 0 ? 0.7 : 0;
+
+    for (let i = 0; i < results.compute.length; i += COMPUTE_BATCH_SIZE) {
+      const batch = results.compute.slice(i, i + COMPUTE_BATCH_SIZE);
+      const dbRows = await this.computeRows(batch);
+      await this.insertRows(sqliteDb, dbRows);
+      await addComputedLanceDbRows(batch, dbRows);
+
+      yield {
+        progress:
+          ((i + batch.length) / results.compute.length) * computePhaseMax,
+        desc: `Computing embeddings (${i + batch.length}/${results.compute.length} files)`,
+        status: "indexing",
+      };
+    }
+
+    let accumulatedProgress = computePhaseMax;
 
     for (const { path, cacheKey } of results.addTag) {
       const stmt = await sqliteDb.prepare(
@@ -347,7 +365,7 @@ export class LanceDbIndex implements CodebaseIndex {
       }
 
       await markComplete([{ path, cacheKey }], IndexResultType.AddTag);
-      accumulatedProgress += 1 / results.addTag.length / 3;
+      accumulatedProgress += 0.1 / Math.max(results.addTag.length, 1);
       yield {
         progress: accumulatedProgress,
         desc: `Indexing ${getUriPathBasename(path)}`,
@@ -367,7 +385,7 @@ export class LanceDbIndex implements CodebaseIndex {
           `cachekey = '${cacheKey}' AND path = '${path}'`,
         );
 
-        accumulatedProgress += 1 / toDel.length / 3;
+        accumulatedProgress += 0.1 / Math.max(toDel.length, 1);
         yield {
           progress: accumulatedProgress,
           desc: `Stashing ${getUriPathBasename(path)}`,
@@ -385,7 +403,7 @@ export class LanceDbIndex implements CodebaseIndex {
         path,
         this.artifactId,
       );
-      accumulatedProgress += 1 / results.del.length / 3;
+      accumulatedProgress += 0.1 / Math.max(results.del.length, 1);
       yield {
         progress: accumulatedProgress,
         desc: `Removing ${getUriPathBasename(path)}`,
