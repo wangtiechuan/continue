@@ -38,7 +38,7 @@ import { migrateJsonSharedConfig } from "../migrateSharedConfig";
 import { rectifySelectedModelsFromGlobalContext } from "../selectedModels";
 import { loadContinueConfigFromYaml } from "../yaml/loadYaml";
 
-async function loadRules(ide: IDE) {
+async function loadRules(ide: IDE, disableAgentFiles?: boolean) {
   const rules: RuleWithSource[] = [];
   const errors = [];
 
@@ -50,7 +50,7 @@ async function loadRules(ide: IDE) {
 
   // Add rules from markdown files in .continue/rules
   const { rules: markdownRules, errors: markdownRulesErrors } =
-    await loadMarkdownRules(ide);
+    await loadMarkdownRules(ide, { disableAgentFiles });
   rules.unshift(...markdownRules);
   errors.push(...markdownRulesErrors);
 
@@ -151,7 +151,10 @@ export default async function doLoadConfig(options: {
   errors = [...(errors ?? [])];
 
   // Load rules and always include the RulesContextProvider
-  const { rules, errors: rulesErrors } = await loadRules(ide);
+  const { rules, errors: rulesErrors } = await loadRules(
+    ide,
+    newConfig.experimental?.disableAgentFiles,
+  );
   errors.push(...rulesErrors);
   newConfig.rules.unshift(...rules);
 

@@ -61,6 +61,7 @@ export function UserSettingsSection() {
     config.experimental?.enableExperimentalTools ?? false;
   const onlyUseSystemMessageTools =
     config.experimental?.onlyUseSystemMessageTools ?? false;
+  const disableAgentFiles = config.experimental?.disableAgentFiles ?? false;
   const codebaseToolCallingOnly =
     config.experimental?.codebaseToolCallingOnly ?? false;
   const allowAnonymousTelemetry = config.allowAnonymousTelemetry ?? true;
@@ -263,6 +264,15 @@ export function UserSettingsSection() {
                     value={onlyUseSystemMessageTools}
                     onChange={(value) =>
                       handleUpdate({ onlyUseSystemMessageTools: value })
+                    }
+                  />
+                  <UserSetting
+                    type="toggle"
+                    title="Disable AGENTS.md/CLAUDE.md auto-load"
+                    description=" Don't auto-inject workspace agent files (AGENTS.md/AGENT.md/CLAUDE.md) as always-applied rules. Saves context for small local models."
+                    value={disableAgentFiles}
+                    onChange={(value) =>
+                      handleUpdate({ disableAgentFiles: value })
                     }
                   />
                   <UserSetting

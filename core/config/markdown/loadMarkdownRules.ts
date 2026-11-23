@@ -12,15 +12,23 @@ export const SUPPORTED_AGENT_FILES = ["AGENTS.md", "AGENT.md", "CLAUDE.md"];
  * Loads rules from markdown files in the .continue/rules and .continue/prompts directories
  * and agent files (AGENTS.md, AGENT.md, CLAUDE.md) at workspace root
  */
-export async function loadMarkdownRules(ide: IDE): Promise<{
+export async function loadMarkdownRules(
+  ide: IDE,
+  options?: { disableAgentFiles?: boolean },
+): Promise<{
   rules: RuleWithSource[];
   errors: ConfigValidationError[];
 }> {
   const errors: ConfigValidationError[] = [];
   const rules: RuleWithSource[] = [];
+  const loadAgentFiles = !(options?.disableAgentFiles ?? false);
 
-  // First, try to load agent files from workspace root
-  const workspaceDirs = await ide.getWorkspaceDirs();
+  // Agent files (AGENTS.md/CLAUDE.md) 默认自动注入全量内容且 alwaysApply，
+  // 对本地小模型上下文负担大，可通过 experimental.disableAgentFiles 关闭
+  let workspaceDirs: string[] = [];
+  if (loadAgentFiles) {
+    workspaceDirs = await ide.getWorkspaceDirs();
+  }
 
   for (const workspaceDir of workspaceDirs) {
     let agentFileFound = false;

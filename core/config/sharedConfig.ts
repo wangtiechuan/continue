@@ -21,6 +21,7 @@ export const sharedConfigSchema = z
     useCurrentFileAsContext: z.boolean(),
     enableExperimentalTools: z.boolean(),
     onlyUseSystemMessageTools: z.boolean(),
+    disableAgentFiles: z.boolean(),
     codebaseToolCallingOnly: z.boolean(),
     enableStaticContextualization: z.boolean(),
 
@@ -186,6 +187,11 @@ export function modifyAnyConfigWithSharedConfig<
   if (sharedConfig.onlyUseSystemMessageTools !== undefined) {
     configCopy.experimental.onlyUseSystemMessageTools =
       sharedConfig.onlyUseSystemMessageTools;
+  }
+
+  if (sharedConfig.disableAgentFiles !== undefined) {
+    configCopy.experimental.disableAgentFiles =
+      sharedConfig.disableAgentFiles;
   }
 
   if (sharedConfig.codebaseToolCallingOnly !== undefined) {

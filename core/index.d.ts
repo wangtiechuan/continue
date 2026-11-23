@@ -1661,6 +1661,9 @@ export interface ExperimentalConfig {
   promptPath?: string;
   enableExperimentalTools?: boolean;
   onlyUseSystemMessageTools?: boolean;
+  // 本地小模型（9B）fork 定制：跳过对工作区根 AGENTS.md/CLAUDE.md 的自动加载，
+  // 避免给 Codex/Claude 用的长文档每轮注入上下文。默认 undefined=保持原行为。
+  disableAgentFiles?: boolean;
 
   /**
    * Quick actions are a way to add custom commands to the Code Lens of
