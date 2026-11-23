@@ -154,10 +154,11 @@ class Ollama extends BaseLLM implements ModelInstaller {
   static defaultOptions: Partial<LLMOptions> = {
     apiBase: "http://localhost:11434/",
     model: "codellama-7b",
-    // 原值 64：Ollama 会把批次内多条 input 拼进同一条序列再按 num_ctx 截断，
-    // 64 条 × 最多 500 token = 3.2 万 token 远超默认 2048 上下文，尾部 token 被静默丢弃，
-    // 向量质量劣化。4 条 × 500 = 2000 token，留有余量。
-    maxEmbeddingBatchSize: 4,
+    // 实测 Ollama /api/embed 对多条 input 是逐条独立编码（批次内向量与单独编码余弦=1.0），
+    // 不存在拼接截断，批次大小只影响 HTTP 往返开销。索引失败的真因是并发请求打崩 -np 1
+    // 单并发 runner（已在 core/llm/index.ts 对 localhost apiBase 改顺序执行修复）。
+    // 16 是实测甜点：全量索引约 4 分钟，比批次 4 快 1.5 倍，再大无明显收益。
+    maxEmbeddingBatchSize: 16,
   };
 
   private static modelsBeingInstalled: Set<string> = new Set();
