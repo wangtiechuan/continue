@@ -117,21 +117,25 @@ function InputToolbar(props: InputToolbarProps) {
                   />
 
                   <ToolTip place="top" content="添加图片">
-                    <HoverItem className="">
-                      <PhotoIcon
-                        className="h-3 w-3 hover:brightness-125"
-                        onClick={(e) => {
-                          fileInputRef.current?.click();
-                        }}
-                      />
+                    <HoverItem className="!p-[3px]">
+                      <div className="flex h-3.5 w-3.5 items-center justify-center">
+                        <PhotoIcon
+                          className="h-3.5 w-3.5 hover:brightness-125"
+                          onClick={(e) => {
+                            fileInputRef.current?.click();
+                          }}
+                        />
+                      </div>
                     </HoverItem>
                   </ToolTip>
                 </>
               ))}
             {props.toolbarOptions?.hideAddContext || (
               <ToolTip place="top" content="添加上下文">
-                <HoverItem onClick={props.onAddContextItem}>
-                  <AtSymbolIcon className="h-3 w-3 hover:brightness-125" />
+                <HoverItem className="!p-[3px]" onClick={props.onAddContextItem}>
+                  <div className="flex h-3.5 w-3.5 items-center justify-center">
+                    <AtSymbolIcon className="h-3.5 w-3.5 hover:brightness-125" />
+                  </div>
                 </HoverItem>
               </ToolTip>
             )}
@@ -153,20 +157,20 @@ function InputToolbar(props: InputToolbarProps) {
                   place="top"
                   content={
                     hasReasoningEnabled
-                      ? "关闭模型思考"
-                      : "开启模型思考"
+                        ? "思考模式开启中，点击关闭"
+                        : "开启模型思考"
                   }
                 >
                   {hasReasoningEnabled ? (
-                    <div className="flex h-[18px] items-center gap-1 rounded-full bg-amber-400/15 px-1.5 text-amber-400 transition-colors duration-200 hover:brightness-125">
-                      <LightBulbIconSolid className="h-3 w-3" />
-                      <span className="text-[10px] font-medium leading-none">
+                      <div className="flex h-3.5 items-center gap-1 rounded-full border border-amber-400/40 bg-amber-400/10 px-1.5 text-amber-400 transition-all duration-200 hover:brightness-125">
+                        <LightBulbIconSolid className="h-3 w-3 shrink-0" />
+                        <span className="text-[10px] font-semibold leading-none">
                         思考
                       </span>
                     </div>
                   ) : (
-                    <div className="flex h-[18px] w-[18px] items-center justify-center">
-                      <LightBulbIconOutline className="h-3 w-3 text-description-muted hover:brightness-150" />
+                      <div className="flex h-3.5 w-3.5 items-center justify-center rounded-full transition-all duration-200 hover:brightness-125">
+                        <LightBulbIconOutline className="h-3.5 w-3.5 text-description-muted hover:brightness-150" />
                     </div>
                   )}
                 </ToolTip>
