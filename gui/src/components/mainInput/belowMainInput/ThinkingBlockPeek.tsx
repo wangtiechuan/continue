@@ -2,7 +2,7 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 import { ChatHistoryItem } from "core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { AnimatedEllipsis } from "../../AnimatedEllipsis";
@@ -34,8 +34,10 @@ function ThinkingBlockPeek({
   tokens,
 }: ThinkingBlockPeekProps) {
   const [open, setOpen] = useState(false);
+  const [userToggled, setUserToggled] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<string>("");
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const duplicateRedactedThinkingBlock =
     prevItem &&
@@ -55,6 +57,24 @@ function ThinkingBlockPeek({
     }
   }, [inProgress]);
 
+  // 流式思考期间自动展开（像 Cline 一样实时展示思考内容），完成后自动折叠；
+  // 用户手动点击后不再自动切换，尊重用户意图
+  useEffect(() => {
+    if (userToggled) return;
+    if (inProgress) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [inProgress, userToggled]);
+
+  // 流式期间自动滚动到底部，让最新思考内容可见
+  useEffect(() => {
+    if (inProgress && open && contentRef.current) {
+      contentRef.current.scrollTop = contentRef.current.scrollHeight;
+    }
+  }, [content, inProgress, open]);
+
   return duplicateRedactedThinkingBlock ? null : (
     <div className="thread-message">
       <div className="mt-1 flex flex-col px-4">
@@ -65,7 +85,10 @@ function ThinkingBlockPeek({
             data-testid="thinking-block-peek"
             aria-expanded={open}
             aria-controls={`thinking-block-content-${index}`}
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setOpen(!open);
+              setUserToggled(true);
+            }}
           >
             {inProgress ? (
               <span>
@@ -75,7 +98,7 @@ function ThinkingBlockPeek({
             ) : redactedThinking ? (
               "已隐藏思考"
             ) : (
-              "思考" +
+              (open ? "收起思考" : "展开思考") +
               (elapsedTime ? ` ${elapsedTime}` : "") +
               (tokens ? ` (${tokens} tokens)` : "")
             )}
@@ -88,6 +111,7 @@ function ThinkingBlockPeek({
         </div>
         <div
           id={`thinking-block-content-${index}`}
+          ref={contentRef}
           className={`overflow-y-auto transition-all duration-300 ease-in-out ${
             open ? "max-h-[50vh] opacity-100" : "max-h-0 opacity-0"
           }`}
