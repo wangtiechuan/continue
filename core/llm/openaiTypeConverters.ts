@@ -234,6 +234,12 @@ export function toChatBody(
     tool_choice: options.toolChoice,
   };
 
+  // 用户开启思考时发送 reasoning_effort，让 Ollama 兼容端/路由器开启 think
+  if (options.reasoning) {
+    (params as any).reasoning_effort =
+      (options as any).reasoningEffort || "medium";
+  }
+
   if (options.tools?.length) {
     params.tools = options.tools
       .filter((tool) => !tool.type || tool.type === "function")
