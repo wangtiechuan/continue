@@ -1193,14 +1193,6 @@ export abstract class BaseLLM implements ILLM {
             includeReasoningContentField: this.supportsReasoningContentField,
           });
           body = this.modifyChatBody(body);
-          console.log(
-            "[thinking-debug] toChatBody result: reasoning_effort=",
-            (body as any).reasoning_effort,
-            "options.reasoning=",
-            completionOptions.reasoning,
-            "url=",
-            this.openaiAdapter ? "adapter" : "custom",
-          );
 
           if (logEnabled) {
             interaction?.logItem({
